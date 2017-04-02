@@ -1,0 +1,73 @@
+{% import "widgets/ffpage-macros.html.twig" as ff_widget %}
+{% if (params.showform | default('Y'))=='Y' %}
+    <form name="{{prefix}}{{source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
+          action='{{params.action}}'  role="form" method="post">
+        <input type='hidden' name='fs' value='{{params.fs|default('')}}'>
+    {% endif %}    
+    {% set fldcount = 0 %}
+    {% for fid, field in fields  if ( field.showin_editform =='Y') %}
+        {# macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", include_blank=true,other_att="", size="") #}
+        {% set ffldid = prefix~'_'~field.db_name %}
+        {% if params.form_array is empty %}
+            {% set ffldname = field.db_name %}
+            {% set ffldval = params.data[field.db_name] %}
+        {% else %}
+            {% set ffldname = params.form_array~'['~field.db_name~']' %}
+            {% set ffldval = params.data[params.form_array][field.db_name] %}
+        {% endif %}
+        {% if ffldval is empty  and field.db_name=='user_id' %}
+            {% set ffldval = user.id %}
+        {% endif %}
+        {% if field.hidden=='Y' %}
+            <input type="hidden" name='{{ffldname}}' id='{{ffldid}}' value='{{ffldval}}'>
+        {%else %}
+            {% if fldcount == 0 %}
+                <div class="row form-group">
+                {% endif %}
+                {% set fldcount = fldcount + 1 %}
+                {%if field.type=='select' %}
+                    {{  ff_widget.uf_select((ffldid),ffldname, field.label, field.options, "col-sm-2","col-sm-4",false,'',ffldval)}}
+                {% elseif field.type=='checkbox' %}
+                    {#              {{  ff_widget.uf_checkbox((prefix~'_'~field.db_name),field.db_name, field.label, field.options, "col-sm-2","col-sm-4 ilist-chkbox")}} #}
+                    {# {% macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", include_blank=true,other_att="", size="") %} #}
+                    {{  ff_widget.uf_select((ffldid),(ffldname~'[]'), field.label, field.options, "col-sm-2","col-sm-4",true,'',ffldval)}}
+                    {# uf_textarea(id, name, label, lclass,iclass, placeholder,value, rows, cols, other_att="") #}
+                {% elseif field.type=='textarea' %}
+                    {{  ff_widget.uf_textarea((ffldid),ffldname, field.label, "col-sm-2","col-sm-4 ilist-textarea",field.label,ffldval)}}
+                {% else %}
+                    {# macro uf_inputtext(type, id, name, label, addon, lclass, iclass,placeholder="", other_att="", size="", value="", atuocomplete="") #}
+                    {{ ff_widget.uf_inputtext(field.type,(ffldid),ffldname,field.label,field.addon, "col-sm-2","col-sm-4",field.label,'','',ffldval) }}
+                {% endif %}
+                {% if fldcount == (params.fields_perrow|default(2)) %}
+                    {% set fldcount = 0 %}
+                </div>
+            {% endif %}
+        {% endif %}
+
+    {% endfor %}
+    {% if fldcount == 1 %}
+        <div class="col-sm-6">
+        </div>
+    </div>
+{% endif %}
+{% if params.detail_content %}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ params.detail_content.html |raw }}
+        </div>
+    </div>    
+{% endif %}
+{% if (params.showsubmit | default('Y'))=='Y' %}
+<div class="row">
+    <div class="col-sm-12">
+        {{ ff_widget.input_button('btn_1','submit_id' ,(params.fs|default('')),'btn-primary','Touchdown') }}
+    </div>
+</div>
+{% endif %}
+{% if (params.showform | default('Y'))=='Y' %}
+<div class="collapse">
+    <label>Spiderbro: Don't change me bro, I'm tryin'a catch some flies!</label>
+    <input name="spiderbro" id="spiderbro" value="http://"/>
+</div>          
+</form>
+{% endif %}

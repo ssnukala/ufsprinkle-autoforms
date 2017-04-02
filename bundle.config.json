@@ -1,0 +1,31 @@
+{
+    "bundle": {
+        "js/sndbforms": {
+            "scripts": [
+                "vendor/bootstrap-multiselect/dist/js/bootstrap-multiselect.js",
+                "vendor/fuelux/dist/js/fuelux.js",
+                "local/dbforms/js/chinmaya.js"
+            ],
+            "options": {
+                "result": {
+                    "type": {
+                        "scripts": "plain"
+                    }
+                }
+            }
+        },
+        "css/sndbforms": {
+            "styles": [
+                "vendor/fuelux/dist/css/fuelux.css",
+                "vendor/bootstrap-multiselect/dist/css/bootstrap-multiselect.css"
+            ],
+            "options": {
+                "result": {
+                    "type": {
+                        "styles": "plain"
+                    }
+                }
+            }
+        }
+    }
+}

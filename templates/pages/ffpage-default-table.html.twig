@@ -1,0 +1,77 @@
+{% import "widgets/ffpage-macros.html.twig" as ff_widget %}
+{% if showform  %}
+    <form name="{{prefix}}{{source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
+          role="form" method="post" action='{{params.action}}'>
+        <input type='hidden' name='fs' value='{{params.fs|default('')}}'>
+    {% endif %}    
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th></th>
+                    {% for fid, field in fields if (field.hidden!='Y' and field.showin_editform =='Y') %}
+                    <th>{{field.label}}</th>
+                    {% endfor %}
+            </tr>
+            {% set fldcount = 1 %}
+            {% set rcount = 0 %}
+            {% for rid, rhead in params.rowhead %}
+                {% set rcount = rcount + 1 %}
+                <tr>
+                    <td>
+                        <strong>{{rhead.text}}</strong>
+                    </td>
+                    {% set fldcount = 1 %}
+                    {% for fid, field in fields if ( field.showin_editform =='Y') %}
+                        {% if params.form_array is empty %}
+                            {% set ffldname = (prefix~'['~rhead.value~']['~field.db_name~']') %}
+                            {% set ffldval = params.data[rhead.value][field.db_name] %}
+                        {% set fldid = (prefix~'_'~field.db_name~fldcount) %}
+                        {% else %}
+                            {% set ffldname = params.form_array~'['~rhead.value~']['~field.db_name~']' %}
+                            {% set ffldval = params.data[params.form_array][rhead.value][field.db_name] %}
+                            {% set ffldid = (prefix~params.form_array~'_'~field.db_name~fldcount) %}
+                        {% endif %}
+
+                        {% if field.hidden=='Y' %}
+                        <input type="hidden" name='{{ffldname}}' value="" >
+                        {%else %}
+                            <td>
+                        {% set fldcount = fldcount + 1 %}
+                        {% if params.lookup_prefix is defined %}
+                            {% set ffldlookup = rhead.value~'_'~field.lookup_cat%}
+                        {% else %}
+                            {% set ffldlookup = field.lookup_cat%}
+                        {% endif %}
+                                {# uf_select(id, name, label, option_array, lclass, iclass, help='',value="", include_blank=true,other_att="", size="",multiple=false) #}
+                                {%if field.type=='select' %}
+                                    {% set ffoptions = getLookupOptions(ffldlookup) %}
+                                    {# macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", include_blank=true,other_att="", size="") #}
+                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, ffoptions, "sr-only","")}}
+                                {% elseif field.type=='checkbox' %}
+                                    {% set ffoptions = getLookupOptions(ffldlookup) %}
+                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, ffoptions, "sr-only","",true)}}
+                                    {#                            {{  ff_widget.uf_checkbox((prefix~'_'~field.db_name),(field.db_name~"["~rhead.value~"]"), field.label, ffoptions, "sr-only","ilist-chkbox")}} #}
+                                    {# uf_textarea(id, name, label, lclass,iclass, placeholder,value, rows, cols, other_att="") #}
+                                {% elseif field.type=='textarea' %}
+                                {{  ff_widget.uf_textarea(ffldid,ffldname, field.label, "sr-only","ilist-textarea")}}
+                                {% else %}
+                                    {# macro uf_inputtext(type, id, name, label, addon, lclass, iclass,placeholder="", other_att="", size="", value="", atuocomplete="") #}
+                                {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,'', "sr-only","",field.label) }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            {% if (params.showsubmit | default('Y'))=='Y' %}
+                <tr>
+                    <td colspan="{{fldcount}}">
+                        {{ ff_widget.input_button('btn_1','submit_id' , (params.fs|default('')),'btn-primary','Touchdown') }}
+                    </td>
+                </tr>
+            {% endif %}
+        </table>    
+    </div>
+    {% if showform  %}
+    </form>
+{% endif %}
