@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Chinmaya Registration Sevak (http://www.chinmayacloud.com)
+ * Database based forms (http://srinivasnukala.com)
  *
- * @link      https://github.com/chinmaya.regsevak
+ * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
- * @license   https://github.com/chinmaya.regsevak/blob/master/licenses/UserFrosting.md (MIT License)
  */
 
 namespace UserFrosting\Sprinkle\SnDbForms\Controller;

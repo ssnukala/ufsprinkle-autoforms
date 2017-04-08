@@ -1,4 +1,12 @@
 <?php
+/**
+ * UserFrosting (http://www.srinivasnukala.com)
+ *
+ * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
+ * @copyright Copyright (c) 2013-2016 Srinivas Nukala
+
+ **/
+
 namespace UserFrosting\Sprinkle\SnDbForms\Model;
 use \Illuminate\Database\Capsule\Manager as Capsule; 
 use UserFrosting\Sprinkle\Core\Model\UFModel;
@@ -8,13 +16,6 @@ class Lookup extends UFModel {
 
     protected $fillable = ['category','value','sort_order','status'];
         
-    
-    /* Fetch a list of iListUsers based on the value of a given column.  Returns empty array if no match is found.
-     * @param value $value The value to find. (defaults to null, which means return all records in the table)
-     * @param string $name The name of the column to match (defaults to null)
-     * @return array An array of iListUser objects
-     */
-
     public static function getLookupValues($category,$catcondition='=',$status='A', $par_orderdir = 'ASC') {
         if(strtolower($catcondition)=='in')
             $resultArr = self::whereIn('category', $category)->where('status','=',$status)->orderBy('sort_order',$par_orderdir)->get();

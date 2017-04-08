@@ -1,18 +1,18 @@
 <?php
+/**
+ * UserFrosting (http://www.srinivasnukala.com)
+ *
+ * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
+ * @copyright Copyright (c) 2013-2016 Srinivas Nukala
+
+ **/
+
 
 namespace UserFrosting\Sprinkle\SnDbForms\Model;
 use \Illuminate\Database\Capsule\Manager as Capsule; 
 use UserFrosting\Sprinkle\Core\Model\UFModel;
 use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
 
-
-/**
- * UserFrosting (http://www.userfrosting.com)
- *
- * @link      https://github.com/userfrosting/UserFrosting
- * @copyright Copyright (c) 2013-2016 Srinivas Nukala
- * @license   https://github.com/userfrosting/UserFrosting/blob/master/licenses/UserFrosting.md (MIT License)
- */
 
 class Formfields extends UFModel
  {

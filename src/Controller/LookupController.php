@@ -1,4 +1,11 @@
 <?php
+/**
+ * Lookup values from Database
+ *
+ * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
+ * @copyright Copyright (c) 2013-2016 Srinivas Nukala
+ */
+
 namespace UserFrosting\Sprinkle\SnDbForms\Controller;
 
 use Carbon\Carbon;
@@ -8,21 +15,13 @@ use UserFrosting\Sprinkle\Core\Util\EnvironmentInfo;
 
 
 /**
- * CDLookupController
+ * CoreController Class
  *
- * An abstract controller class for connecting to iList2 providers.
- *
- * @package UserFrosting-OpenAuthentication
- * @author Srinivas Nukala
- * @link http://srinivasnukala.com
+ * Implements lookup methods
+ * @author Srinivas Nukala (https://srinivasnukala.com)
  */
 
 class LookupController extends SimpleController {
 
-/**
- * constructor
- *
- * @param object $app app object.
- * @return none.
- */  
-}
+
+    }
