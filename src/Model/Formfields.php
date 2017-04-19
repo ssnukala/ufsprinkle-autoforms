@@ -1,32 +1,55 @@
 <?php
+
 /**
  * UserFrosting (http://www.srinivasnukala.com)
  *
  * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
 
- **/
-
+ * */
 
 namespace UserFrosting\Sprinkle\SnDbForms\Model;
-use \Illuminate\Database\Capsule\Manager as Capsule; 
+
+use \Illuminate\Database\Capsule\Manager as Capsule;
 use UserFrosting\Sprinkle\Core\Model\UFModel;
 use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
 
+class Formfields extends UFModel {
 
-class Formfields extends UFModel
- {
     protected $table = "adm_formfields";
+    protected $fillable = ["form_prefix",
+        "table_name",
+        "seq",
+        "db_name",
+        "value_type",
+        "edit_group",
+        "hidden",
+        "orderable",
+        "type",
+        "lookup_cat",
+        "showin_editform",
+        "primary_key",
+        "label",
+        "message",
+        "validation_json",
+        "size1",
+        "size2",
+        "default",
+        "empty_check",
+        "searchable",
+        "search_group",
+        "showin_searchresult",
+        "result_group",
+        "search_function",
+        "showin_shortform",
+        "status"];
 
-    protected $fillable = [];
-
-        
-    public static function getFieldDefinitions($table,$status='A', $par_orderdir = 'ASC') {
-        $resultArr_obj = self::where('table_name','=', $table)
-                ->where('status','=',$status)
-                ->orderBy('seq',$par_orderdir)
+    public static function getFieldDefinitions($table, $status = 'A', $par_orderdir = 'ASC') {
+        $resultArr_obj = self::where('table_name', '=', $table)
+                ->where('status', '=', $status)
+                ->orderBy('seq', $par_orderdir)
                 ->get();
-        $resultArr =$resultArr_obj->toArray();
+        $resultArr = $resultArr_obj->toArray();
 //logarr($resultArr,"Line 62 returning from formfields table $table");        
         $var_classfields = $var_fields = array();
         $var_primarykey = 'none';
@@ -62,5 +85,4 @@ class Formfields extends UFModel
         return $var_classfields;
     }
 
-    
 }
