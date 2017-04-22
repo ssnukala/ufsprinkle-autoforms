@@ -55,7 +55,7 @@ if (!$schema->hasTable('adm_lookup')) {
     $schema->create('adm_lookup', function(Blueprint $table) {
         
         $table->increments('id');
-        $table->string('category', 10);
+        $table->string('category', 100);
         $table->string('value', 255);
         $table->string('display_value', 255);
         $table->char('value_type', 1)->nullable();
