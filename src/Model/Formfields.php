@@ -16,7 +16,7 @@ use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
 
 class Formfields extends UFModel {
 
-    protected $table = "adm_formfields";
+    protected $table = "sevak_formfields";
     protected $fillable = ["form_prefix",
         "table_name",
         "seq",

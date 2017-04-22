@@ -8,8 +8,8 @@ use Illuminate\Database\Schema\Blueprint;
  * "Group" now replaces the notion of "primary group" in earlier versions of UF.  A user can belong to exactly one group.
  */
     echo "Creating table 'formfields'..." . PHP_EOL;
-if (!$schema->hasTable('adm_formfields')) {
-    $schema->create('adm_formfields', function(Blueprint $table) {
+if (!$schema->hasTable('sevak_formfields')) {
+    $schema->create('sevak_formfields', function(Blueprint $table) {
 
         $table->increments('id');
         $table->string('form_prefix', 10);
@@ -38,10 +38,9 @@ if (!$schema->hasTable('adm_formfields')) {
         $table->char('search_function', 50)->nullable();
         $table->char('showin_shortform', 1)->default('N');
         $table->char('status', 1)->default('A');
-        $table->string('created_by', 20)->nullable();
         $table->string('updated_by', 20)->nullable();
-//        $table->timestamps();
         $table->timestamp('updated_at'); 
+        $table->string('created_by', 20)->nullable();
         $table->timestamp('created_at');        
 
         $table->engine = 'InnoDB';
@@ -53,8 +52,8 @@ if (!$schema->hasTable('adm_formfields')) {
     echo "Table 'formfields' already exists.  Skipping..." . PHP_EOL;
 }
     echo "Creating table 'Lookup'..." . PHP_EOL;
-if (!$schema->hasTable('adm_lookup')) {
-    $schema->create('adm_lookup', function(Blueprint $table) {
+if (!$schema->hasTable('sevak_lookup')) {
+    $schema->create('sevak_lookup', function(Blueprint $table) {
         
         $table->increments('id');
         $table->string('category', 100);
@@ -64,7 +63,6 @@ if (!$schema->hasTable('adm_lookup')) {
         $table->integer('sort_order')->nullable();
         $table->char('status', 1)->default('A');
         $table->string('updated_by', 20)->nullable();
-//        $table->timestamps();
         $table->timestamp('updated_at'); 
         $table->string('created_by', 20)->nullable();
         $table->timestamp('created_at');        
