@@ -40,7 +40,9 @@ if (!$schema->hasTable('adm_formfields')) {
         $table->char('status', 1)->default('A');
         $table->string('created_by', 20)->nullable();
         $table->string('updated_by', 20)->nullable();
-        $table->timestamps();
+//        $table->timestamps();
+        $table->timestamp('updated_at'); 
+        $table->timestamp('created_at');        
 
         $table->engine = 'InnoDB';
         $table->collation = 'utf8_unicode_ci';
@@ -61,9 +63,11 @@ if (!$schema->hasTable('adm_lookup')) {
         $table->char('value_type', 1)->nullable();
         $table->integer('sort_order')->nullable();
         $table->char('status', 1)->default('A');
-        $table->string('created_by', 20)->nullable();
         $table->string('updated_by', 20)->nullable();
-        $table->timestamps();
+//        $table->timestamps();
+        $table->timestamp('updated_at'); 
+        $table->string('created_by', 20)->nullable();
+        $table->timestamp('created_at');        
 
         $table->engine = 'InnoDB';
         $table->collation = 'utf8_unicode_ci';
