@@ -12,7 +12,7 @@ use \Illuminate\Database\Capsule\Manager as Capsule;
 use UserFrosting\Sprinkle\Core\Model\UFModel;
 
 class Lookup extends UFModel {
-    protected $table = "cmadm_lookup";
+    protected $table = "adm_lookup";
 
     protected $fillable = ['category','value','diaplay_value','sort_order','status'];
         

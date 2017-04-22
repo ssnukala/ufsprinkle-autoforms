@@ -50,3 +50,26 @@ if (!$schema->hasTable('adm_formfields')) {
 } else {
     echo "Table 'formfields' already exists.  Skipping..." . PHP_EOL;
 }
+    echo "Creating table 'Lookup'..." . PHP_EOL;
+if (!$schema->hasTable('adm_lookup')) {
+    $schema->create('adm_lookup', function(Blueprint $table) {
+        
+        $table->increments('id');
+        $table->string('category', 10);
+        $table->string('value', 255);
+        $table->string('display_value', 255);
+        $table->char('value_type', 1)->nullable();
+        $table->integer('sort_order')->nullable();
+        $table->char('status', 1)->default('A');
+        $table->string('created_by', 20)->nullable();
+        $table->string('updated_by', 20)->nullable();
+        $table->timestamps();
+
+        $table->engine = 'InnoDB';
+        $table->collation = 'utf8_unicode_ci';
+        $table->charset = 'utf8';
+    });
+    echo "Created table 'adm_lookup'..." . PHP_EOL;
+} else {
+    echo "Table 'adm_lookup' already exists.  Skipping..." . PHP_EOL;
+}
