@@ -14,7 +14,7 @@ use UserFrosting\Sprinkle\Core\Model\UFModel;
 class Lookup extends UFModel {
     protected $table = "cmadm_lookup";
 
-    protected $fillable = ['category','value','sort_order','status'];
+    protected $fillable = ['category','value','diaplay_value','sort_order','status'];
         
     public static function getLookupValues($category,$catcondition='=',$status='A', $par_orderdir = 'ASC') {
         if(strtolower($catcondition)=='in')
