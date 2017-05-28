@@ -8,12 +8,12 @@
  * @license   https://github.com/userfrosting/UserFrosting/blob/master/licenses/UserFrosting.md (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\SnDbForms\Model\Migrations\v400;
+namespace UserFrosting\Sprinkle\Sbdbforms\Model\Migrations\v400;
 
 use UserFrosting\System\Bakery\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
-use UserFrosting\Sprinkle\SnDbForms\Model\Formfields;
+use UserFrosting\Sprinkle\Sbdbforms\Model\Formfields;
 
 /**
  * Formfields table migration

@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
 
-namespace UserFrosting\Sprinkle\SnDbForms\Controller;
+namespace UserFrosting\Sprinkle\Sbdbforms\Controller;
 
 use Carbon\Carbon;
 use UserFrosting\Sprinkle\Core\Controller\SimpleController;

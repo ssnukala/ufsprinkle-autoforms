@@ -7,7 +7,7 @@
 
  **/
 
-namespace UserFrosting\Sprinkle\SnDbForms\Model;
+namespace UserFrosting\Sprinkle\Sbdbforms\Model;
 use \Illuminate\Database\Capsule\Manager as Capsule; 
 use UserFrosting\Sprinkle\Core\Model\UFModel;
 
