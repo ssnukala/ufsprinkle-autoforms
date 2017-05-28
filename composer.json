@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "UserFrosting\\Sprinkle\\SnDbForms\\": "src/"
+            "UserFrosting\\Sprinkle\\Sndbforms\\": "src/"
         }
     }
 }
