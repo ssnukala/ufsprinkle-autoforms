@@ -312,9 +312,9 @@ class FormfieldsController extends SimpleController {
 
         logarr($fulldata, "Line 258 full data, table is " . $this->_db_table);
         foreach ($fulldata as &$var_datarec) {
-            cdFFSource::init($this->_db_table);
+            Ffsource::init($this->_db_table);
             $var_thisid = isset($var_datarec['id']) ? $var_datarec['id'] : null;
-            $var_updobj = new cdFFSource($var_datarec, $var_thisid);
+            $var_updobj = new Ffsource($var_datarec, $var_thisid);
 //            $var_updobj->init($this->_db_table); 
             if ($var_thisid != null && $var_datarec['id'] > 0)
                 $var_updobj->exists = true;
