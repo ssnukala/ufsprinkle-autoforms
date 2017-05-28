@@ -7,12 +7,12 @@
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
 
-namespace UserFrosting\Sprinkle\Sbdbforms\Model\Migrations\v400;
+namespace UserFrosting\Sprinkle\SnDbForms\Model\Migrations\v400;
 
 use UserFrosting\System\Bakery\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
-use UserFrosting\Sprinkle\Sbdbforms\Model\Formfields;
+use UserFrosting\Sprinkle\SnDbForms\Model\Formfields;
 
 /**
  * Formfields table migration
