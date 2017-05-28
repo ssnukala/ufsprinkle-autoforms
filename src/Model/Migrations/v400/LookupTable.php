@@ -1,11 +1,11 @@
 <?php
 /**
- * UserFrosting (http://www.userfrosting.com)
+ * SN DB Forms (http://www.srinivasnukala.com)
  *
- * @link      https://github.com/userfrosting/UserFrosting
- * @copyright Copyright (c) 2013-2016 Alexander Weissman
- * @license   https://github.com/userfrosting/UserFrosting/blob/master/licenses/UserFrosting.md (MIT License)
+ * @link      https://github.com/ssnukala/ufsprinkle-sndbforms/
+ * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
+
 namespace UserFrosting\Sprinkle\SnDbForms\Model\Migrations\v400;
 
 use UserFrosting\System\Bakery\Migrations\Migration;
