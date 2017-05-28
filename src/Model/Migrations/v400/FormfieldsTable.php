@@ -5,7 +5,6 @@
  *
  * @link      https://github.com/ssnukala/ufsprinkle-sndbforms/
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
- * @license   https://github.com/userfrosting/UserFrosting/blob/master/licenses/UserFrosting.md (MIT License)
  */
 
 namespace UserFrosting\Sprinkle\Sbdbforms\Model\Migrations\v400;
