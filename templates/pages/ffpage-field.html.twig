@@ -1,0 +1,9 @@
+{%if field.type=='select' %}
+    {{  ff_widget.uf_select(field)}}
+{% elseif field.type=='checkbox' %}
+    {{  ff_widget.uf_select(field)}}
+{% elseif field.type=='textarea' %}
+    {{  ff_widget.uf_textarea(field)}}
+{% else %}
+    {{ ff_widget.uf_inputtext(field) }}
+{% endif %}

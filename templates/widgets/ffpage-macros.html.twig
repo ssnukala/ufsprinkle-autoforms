@@ -10,145 +10,82 @@
     {% endif %}
 {% endmacro %}
 
-nputs
-
-{# Most common form control, text-based input fields. Includes support for all HTML5 types: text, 
-password, datetime, datetime-local, date, month, time, week, number, email, url, search, tel, and color.
-#}
-{% macro input_text(type, id, name, label, class, placeholder, size, value, other_att, errors) %}
-    {% import _self as form %}
-    <div class="form-group {% if errors %}has-error{% endif %}">
-        <label class="control-label " id="{{id | default("input_" ~ name ~ "_i" ) }}" >{{ label }}</label>
-        <input class="{{class}} form-control" type="{{ type|default('text') }}" id="{{id | default("input_" ~ name ~ "_i" ) }}" 
-               name="{{ name }}" {{other_att}} placeholder="{{ placeholder|default(label) }}"  
-               value="{{ value | e }}" size="{{ size|default(20) }}" >
-        {{ form.error_block(errors) }}
-    </div>
-{% endmacro %}
-
-{% macro uf_inputtext(type, id, name, label, addon, lclass, iclass,placeholder="", other_att="", size="", value="", atuocomplete="") %}
+{% macro dbf_inputtext(field) %}
     {#     <div class="form-group"> #}
-    <label for="{{id}}" class="control-label {{lclass}} text-right">{{label}}</label>
-    <div class="{{iclass}}">
-        {% if addon is not empty %}
+    <label for="{{field.id}}" class="control-label {{field.lable_class}} text-right">{{field.label}}</label>
+    <div class="{{field.input_class}}">
+        {% if field.addon is not empty %}
             <div class="input-group">
-                <span class="input-group-addon"><i class="{{addon}}"></i></span>
+                <span class="input-group-addon"><i class="{{field.addon}}"></i></span>
                 {% endif %}
-            <input type="{% if type in ['date','datetime'] %}text{% elseif type in ['staticinput'] %}hidden{%else%}{{type}}{% endif %}" 
-                   {% if type not in ['staticinput'] %}
-                        class=" input-sm form-control {% if type in ['date','datetime'] %} datepicker {% endif %} " 
-                        placeholder="{{placeholder}}"
+            <input type="{% if field.type in ['date','datetime'] %}text{% elseif field.type in ['staticinput'] %}hidden{%else%}{{field.type}}{% endif %}" 
+                   {% if field.type not in ['staticinput'] %}
+                        class=" input-sm form-control {% if field.type in ['date','datetime'] %} datepicker {% endif %} " 
+                        placeholder="{{field.placeholder}}"
                    {% endif %}
-                   name="{{name}}" 
-                   id="{{id}}"   value="{% if type in ['date','datetime'] %}{% if value is not empty %}{{value|date('m/d/Y')}}{% endif %}{% else %}{{value}}{%endif%}" 
-                   {% if size is not empty %}
-                       size="{{size}}"
+                   name="{{field.name}}" 
+                   id="{{field.id}}"   value="{% if field.type in ['date','datetime'] %}{% if field.value is not empty %}{{field.value|date('m/d/Y')}}{% endif %}{% else %}{{field.value}}{%endif%}" 
+                   {% if field.size is not empty %}
+                       size="{{field.size}}"
                    {% endif %}
-                   {% if atuocomplete is not empty %}
-                       autocomplete="{{atuocomplete}}" 
+                   {% if field.atuocomplete is not empty %}
+                       autocomplete="{{field.atuocomplete}}" 
                    {% endif %}
-                   {{other_att}} {% if type in ['number'] %} min="0" {% endif %}>
-                   {% if type in ['staticinput'] %}
-                           <p class='form-control' id='{{id}}_text' style="width:100%;">{{value}}</p>
+                   {{field.custom}} {% if field.type in ['number'] %} min="{{field.min|default(0)}}" 
+                       {% if field.max  is not empty %} max="{{field.max|default(10000000)}}" {% endif %} 
+                   {% endif %}>
+                   {% if field.type in ['staticinput'] %}
+                           <p class='form-control' id='{{field.id}}_text' style="width:100%;">{{field.value}}</p>
                    {% endif %}
-            {% if addon is not empty %}
+            {% if field.addon is not empty %}
             </div>
         {% endif %}
     </div>
     {#    </div> #}
 {% endmacro %}
 
-{% macro uf_textarea(id, name, label, lclass,iclass, placeholder,value, rows, cols, other_att="") %}
+{% macro dbf_textarea(field) %}
     {% import _self as form %}
     {#     <div class="form-group"> #}
-    <label class="control-label {{lclass}}">{{label}}</label>
-    <div class="{{iclass}}">
-        <textarea rows="{{rows|default(3)}}"  cols="{{cols|default(60)}}" class="form-control {{class}}" id="{{id | default("input_" ~ name ~ "_i" ) }}"  
-                  name="{{ name }}" placeholder="{{ placeholder|default(label) }}">{{ value }}</textarea>
-        {{ form.error_block(errors) }}
+    <label class="control-label {{field.lable_class}}">{{field.label}}</label>
+    <div class="{{field.input_class}}">
+        <textarea rows="{{field.rows|default(3)}}"  cols="{{field.cols|default(60)}}" class="form-control {{field.input_class}}" id="{{field.id | default("input_" ~ field.name ~ "_i" ) }}"  
+                  name="{{ field.name }}" placeholder="{{ field.placeholder|default(field.label) }}">{{ field.value }}</textarea>
+        {{ form.error_block(field.errors) }}
     </div>
 {% endmacro %}    
 
-{% macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", 
-include_blank=true,other_att="", size="") %}
+{% macro dbf_select(field) %}
     {#    <div class="form-group"> #}
-    <label class="text-right control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
-    <div class="{{iclass}}">
-        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
-                 {% if multiple %}multiple="multiple"{% endif %}>
+    {% set dbfid = field.id | default("sel_" ~ field.name ~ "_i" ) %}
+    <label class="text-right control-label {{field.label_class}}" for="{{dbfid}}">{{ field.label }}</label>
+    <div class="{{field.iclass}}">
+        <select id="{{dbfid}}"  name="{{ field.name }}" class="selectpicker form-control disable-text-shadow {% if field.multiple %}bootstrap-multiselect{% endif %}"
+                 {% if field.multiple %}multiple="multiple"{% endif %}>
             {% set selvalue = 'selected' %}
-            {% for seloption in option_array %}
+            {% for seloption in field.options %}
                 <option value="{{seloption.value}}" 
-                        {% if value is iterable %}
-                            {% if seloption.value in value%} {{selvalue}}{%endif%}
-                        {% elseif multiple and value|split(',') is iterable %}
-                            {% if seloption.value in value|split(',')%} {{selvalue}}{%endif%}
+                        {% if field.value is iterable %}
+                            {% if seloption.value in field.value%} {{selvalue}}{%endif%}
+                        {% elseif multiple and field.value|split(',') is iterable %}
+                            {% if seloption.value in field.value|split(',')%} {{selvalue}}{%endif%}
                         {% elseif value == seloption.value %}{{selvalue}}
-                             {% if not multiple %} {% set selvalue = '' %}{%endif%}
+                             {% if not field.multiple %} {% set selvalue = '' %}{%endif%}
                         {% endif %}
                         >{{ seloption.text|default(seloption.value) }}</option>
             {% endfor %}
-            {% if include_blank and not multiple %}
-                <option disabled {{selvalue}}></option>
+            {% if field.include_blank and not field.multiple %}
+                <option {{selvalue}}></option>
             {% endif %}
         </select>
-        {% if help is not empty %}
-            <p class="help-block">{{help}}</p>
+        {% if field.help is not empty %}
+            <p class="help-block">{{field.help}}</p>
         {% endif %}
     </div>
     {#    </div> #}
 {% endmacro %}
 
-{% macro uf_select_generic(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", 
-include_blank=true,other_att="", size="") %}
-    <label class="control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
-    <div class="{{iclass}}">
-        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
-                 {% if multiple %}multiple="multiple"{% endif %}>
-            {% set ovalue=option_array.value %}
-            {% set oid=option_array.key %}
-            
-            {% for seloption in option_array.data %}
-                <option value="{{ seloption[oid] }}" {% if value == seloption[oid] %}selected{% endif %}>{{ seloption[ovalue]|default('') }}</option>
-            {% endfor %}
-            {% if include_blank and not multiple %}
-                <option disabled selected></option>
-            {% endif %}
-        </select>
-    </div>
-{% endmacro %}
-
-{% macro uf_select_action(frmname, frmaction, frmid,frmclass, id, name, label, option_array, lclass, iclass,onbtnclick, multiple=false, help='',value="", 
-include_blank=true,other_att="", size="") %}
-    <form name="{{frmname}}" id='{{frmid}}' class="{{frmclass}} form form-compact form-horizontal" 
-          action='{{frmaction}}'  role="form" method="post">
-
-    <label class="control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
-    <div class="{{iclass}}">
-    <div class="input-group">
-        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
-                 {% if multiple %}multiple="multiple"{% endif %}>
-            {% set ovalue=option_array.value %}
-            {% set oid=option_array.key %}
-            
-            {% for seloption in option_array.data %}
-                <option value="{{ seloption[oid] }}" {% if value == seloption[oid] %}selected{% endif %}>{{ seloption[ovalue]|default('') }}</option>
-            {% endfor %}
-            {% if include_blank and not multiple %}
-                <option disabled selected></option>
-            {% endif %}
-        </select>
-      <span class="input-group-btn">
-        <button class="btn btn-primary" {% if onbtnclick is defined %} onClick='{{onbtnclick|raw}}' {% endif %} >Go!</button>
-      </span>
-    </div><!-- /input-group -->        
-        
-    </div>
-    </form>
-{% endmacro %}
-    
-    
-{% macro uf_checkbox(id, name, label, option_array, lclass,iclass, help='',value="", other_att="", size="",inline=false) %}
+{% macro dbf_checkbox(id, name, label, option_array, lclass,iclass, help='',value="", other_att="", size="",inline=false) %}
     <label class="control-label {{lclass}}">{{ label }}</label>
     <div class="{{iclass}}">
         {% for seloption in option_array %}
@@ -164,49 +101,8 @@ include_blank=true,other_att="", size="") %}
     </div>
 {% endmacro %}
 
-{% macro input_select(id, name, label, class, option_array, value, errors, htmloptions = { multiple: false, include_blank: true }) %}
-    {% import _self as form %}
-    <div class="form-group {% if errors %}has-error{% endif %}">
-        <label class="control-label" for="input_{{ name }}">{{ label }}</label>
-        <select id="{{id | default("input_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="{{class}} input-sm selectpicker form-control disable-text-shadow" {% if htmloptions.multiple %}multiple{% endif %}>
-            {% if htmloptions.include_blank %}
-                <option disabled selected></option>
-            {% endif %}
-            {% for seloption in option_array %}
-                <option value="{{seloption.value}}" {% if value == seloption.value %}selected{% endif %}>{{ seloption.text|default(seloption.value) }}</option>
-            {% endfor %}
-        </select>
-        {{ form.error_block(errors) }}
-    </div>
-{% endmacro %}
-
-{% macro input_textarea(id, name, label, class, placeholder, rows, cols, value, errors) %}
-    {% import _self as form %}
-
-    <div class="form-group {% if errors %}has-error{% endif %}">
-        <label class="control-label " for="{{id | default("input_" ~ name ~ "_i" ) }}" >{{ label }}</label>
-        <textarea rows="{{rows|default(3)}}"  cols="{{cols|default(60)}}" class="form-control {{class}}" id="{{id | default("input_" ~ name ~ "_i" ) }}"  
-                  name="{{ name }}" placeholder="{{ placeholder }}">{{ value }}</textarea>
-        {{ form.error_block(errors) }}
-    </div>
-{% endmacro %}    
-
-{% macro input_button(id, name, value, class, label) %}
+{% macro dbf_button(id, name, value, class, label) %}
     <button type="submit" id="{{id | default('btn_' ~ name ~ '_i' ) }}" 
         value='{{value}}'    name="{{ name }}" class="btn {{class|default('btn-primary')}}">{{label}}
     </button>
-{% endmacro %}
-
-{% macro input_captcha(captcha_image,label='',lclass='',iclass='',imgclass='') %}
-    <div class="form-group">
-        <label class="control-label {{lclass|default('col-sm-4')}}">{{label|default('Confirm captcha code')}}</label>
-        <div class="{{iclass|default('col-sm-4')}}">
-            <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-eye"></i></span>
-                <input type="text" class="form-control" id="captcha-input" name="captcha" autocomplete="off" value="" placeholder="Organics only!">
-            </div>
-        </div>
-        <div class="{{imgclass|default('col-sm-4')}}">
-            <img alt="if you see this this page will not work"  src="{{captcha_image}}" id="captcha" data-target="#captcha-input">
-        </div>
-    </div>
 {% endmacro %}
