@@ -9,7 +9,7 @@
 
 namespace UserFrosting\Sprinkle\SnDbForms\Model\Migrations\v400;
 
-use UserFrosting\System\Bakery\Migrations\UFMigrations;
+use UserFrosting\System\Bakery\Migrations\UFMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
 use UserFrosting\Sprinkle\SnDbForms\Model\Formfields;
@@ -22,7 +22,7 @@ use UserFrosting\Sprinkle\SnDbForms\Model\Formfields;
  * @extends Migration
  * @author Alex Weissman (https://alexanderweissman.com)
  */
-class FormfieldsTable extends UFMigrations {
+class FormfieldsTable extends UFMigration {
 
     /**
      * {@inheritDoc}
