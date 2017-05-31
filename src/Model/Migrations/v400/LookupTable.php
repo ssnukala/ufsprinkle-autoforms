@@ -8,7 +8,7 @@
 
 namespace UserFrosting\Sprinkle\SnDbForms\Model\Migrations\v400;
 
-use UserFrosting\System\Bakery\Migrations\Migration;
+use UserFrosting\System\Bakery\Migrations\UFMigrations;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
 use UserFrosting\Sprinkle\SnDbForms\Model\Lookup;
@@ -22,7 +22,7 @@ use UserFrosting\Sprinkle\SnDbForms\Model\Lookup;
  * @extends Migration
  * @author Alex Weissman (https://alexanderweissman.com)
  */
-class LookupTable extends Migration
+class LookupTable extends UFMigrations
 {
     /**
      * {@inheritDoc}
