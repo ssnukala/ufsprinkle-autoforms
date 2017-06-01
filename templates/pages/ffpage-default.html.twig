@@ -1,4 +1,4 @@
-{% import "widgets/ffpage-macros.html.twig" as ff_widget %}
+{% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
 {% if (formattr.showform | default('Y'))=='Y' %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           action='{{formattr.action}}'  role="form" method="post">
@@ -56,7 +56,7 @@
 {% if (formattr.showsubmit | default('Y'))=='Y' %}
     <div class="row">
         <div class="col-sm-12">
-            {{ ff_widget.input_button('btn_1','submit_id' ,(formattr.fs|default('')),'btn-primary','Touchdown') }}
+            {{ ff_widget.uf_button('btn_1','submit_id' ,(formattr.fs|default('')),'btn-primary','Touchdown') }}
         </div>
     </div>
 {% endif %}

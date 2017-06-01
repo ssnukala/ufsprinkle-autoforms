@@ -10,7 +10,7 @@
     {% endif %}
 {% endmacro %}
 
-{% macro dbf_inputtext(field) %}
+{% macro af_inputtext(field) %}
     {#     <div class="form-group"> #}
     <label for="{{field.id}}" class="control-label {{field.lable_class}} text-right">{{field.label}}</label>
     <div class="{{field.input_class}}">
@@ -44,7 +44,7 @@
     {#    </div> #}
 {% endmacro %}
 
-{% macro dbf_textarea(field) %}
+{% macro af_textarea(field) %}
     {% import _self as form %}
     {#     <div class="form-group"> #}
     <label class="control-label {{field.lable_class}}">{{field.label}}</label>
@@ -55,7 +55,7 @@
     </div>
 {% endmacro %}    
 
-{% macro dbf_select(field) %}
+{% macro af_select(field) %}
     {#    <div class="form-group"> #}
     {% set dbfid = field.id | default("sel_" ~ field.name ~ "_i" ) %}
     <label class="text-right control-label {{field.label_class}}" for="{{dbfid}}">{{ field.label }}</label>
@@ -85,7 +85,7 @@
     {#    </div> #}
 {% endmacro %}
 
-{% macro dbf_checkbox(id, name, label, option_array, lclass,iclass, help='',value="", other_att="", size="",inline=false) %}
+{% macro af_checkbox(id, name, label, option_array, lclass,iclass, help='',value="", other_att="", size="",inline=false) %}
     <label class="control-label {{lclass}}">{{ label }}</label>
     <div class="{{iclass}}">
         {% for seloption in option_array %}
@@ -101,7 +101,7 @@
     </div>
 {% endmacro %}
 
-{% macro dbf_button(id, name, value, class, label) %}
+{% macro af_button(id, name, value, class, label) %}
     <button type="submit" id="{{id | default('btn_' ~ name ~ '_i' ) }}" 
         value='{{value}}'    name="{{ name }}" class="btn {{class|default('btn-primary')}}">{{label}}
     </button>

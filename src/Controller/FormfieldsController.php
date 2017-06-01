@@ -19,7 +19,7 @@ use UserFrosting\Fortress\Adapter\JqueryValidationAdapter;
 use UserFrosting\Sprinkle\AutoForms\Model\AutoFormSource;
 use UserFrosting\Sprinkle\AutoForms\Model\Formfields;
 use UserFrosting\Sprinkle\AutoForms\Model\Lookup;
-use UserFrosting\Sprinkle\Core\Facades\Debug;
+use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
 
 /**
  * FormfieldsController
@@ -77,7 +77,7 @@ class FormfieldsController extends SimpleController {
 //        $this->_fields = $cur_ff_table['fields'];
 //        $this->_db_columns = array_keys($this->_fields);
         $this->initializePageFields();
-        Debug:debug("Line 80 Fields when initialized", $this->_fields);
+        Debug::debug("Line 80 Fields when initialized", $this->_fields);
 //logarr($this->_db_columns,"Line 81 Columns when initialized");        
     }
 
@@ -127,12 +127,12 @@ class FormfieldsController extends SimpleController {
 
             if (in_array($var_column['type'], ['select', 'checkbox', 'radio'])) {
                 $var_column['addon'] = '';
-                if ($var_column['lookup_cat'] != '' && isset($var_lookupcache[$var_column['lookup_cat']])) {
-                    $var_column['options'] = $var_lookupcache[$var_column['lookup_cat']];
-                } else if ($var_column['lookup_cat'] != '') {
-                    $cur_lookup_values_full = Lookup::getLookupValues($var_column['lookup_cat']);
-//error_log("Line 126 lookup category is ".$var_column['lookup_cat']);                    
-                    $var_lookupcache[$var_column['lookup_cat']] = $var_column['options'] = $cur_lookup_values_full[$var_column['lookup_cat']];
+                if ($var_column['lookup_category'] != '' && isset($var_lookupcache[$var_column['lookup_category']])) {
+                    $var_column['options'] = $var_lookupcache[$var_column['lookup_category']];
+                } else if ($var_column['lookup_category'] != '') {
+                    $cur_lookup_values_full = Lookup::getLookupValues($var_column['lookup_category']);
+//error_log("Line 126 lookup category is ".$var_column['lookup_category']);                    
+                    $var_lookupcache[$var_column['lookup_category']] = $var_column['options'] = $cur_lookup_values_full[$var_column['lookup_category']];
                 } else {
 // lookup category is not set so make this an editable field                        
                     $var_column['type'] = 'text';

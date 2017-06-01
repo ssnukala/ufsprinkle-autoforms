@@ -25,7 +25,7 @@ class Formfields extends UFModel {
         "visible",
         "orderable",
         "type",
-        "lookup_cat",
+        "lookup_category",
         "showin_editform",
         "primary_key",
         "label",

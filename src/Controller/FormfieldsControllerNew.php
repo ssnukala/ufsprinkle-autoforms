@@ -92,12 +92,12 @@ class FormfieldsControllerNew extends SimpleController {
 
             if (in_array($var_column['type'], ['select', 'checkbox', 'radio'])) {
                 $var_column['addon'] = '';
-                if ($var_column['lookup_cat'] != '' && isset($var_lookupcache[$var_column['lookup_cat']])) {
-                    $var_column['options'] = $var_lookupcache[$var_column['lookup_cat']];
-                } else if ($var_column['lookup_cat'] != '') {
-                    $cur_lookup_values_full = Lookup::getLookupValues($var_column['lookup_cat']);
-//error_log("Line 126 lookup category is ".$var_column['lookup_cat']);                    
-                    $var_lookupcache[$var_column['lookup_cat']] = $var_column['options'] = $cur_lookup_values_full[$var_column['lookup_cat']];
+                if ($var_column['lookup_category'] != '' && isset($var_lookupcache[$var_column['lookup_category']])) {
+                    $var_column['options'] = $var_lookupcache[$var_column['lookup_category']];
+                } else if ($var_column['lookup_category'] != '') {
+                    $cur_lookup_values_full = Lookup::getLookupValues($var_column['lookup_category']);
+//error_log("Line 126 lookup category is ".$var_column['lookup_category']);                    
+                    $var_lookupcache[$var_column['lookup_category']] = $var_column['options'] = $cur_lookup_values_full[$var_column['lookup_category']];
                 } else {
 // lookup category is not set so make this an editable field                        
                     $var_column['type'] = 'text';

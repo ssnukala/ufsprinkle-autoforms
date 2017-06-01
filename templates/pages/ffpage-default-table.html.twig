@@ -38,20 +38,20 @@
                             <td>
                         {% set fldcount = fldcount + 1 %}
                         {% if formattr.lookup_prefix is defined %}
-                            {% set ffldlookup = rhead.value~'_'~field.lookup_cat%}
+                            {% set ffldlookup = rhead.value~'_'~field.lookup_category%}
                         {% else %}
-                            {% set ffldlookup = field.lookup_cat%}
+                            {% set ffldlookup = field.lookup_category%}
                         {% endif %}
                                 {# uf_select(id, name, label, option_array, lclass, iclass, help='',value="", include_blank=true,other_att="", size="",multiple=false) #}
                                 {%if field.type=='select' %}
-                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,false,"",ffldval)}}
-                                {{  ff_widget.uf_select((ffldid),ffldname, field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,false,'',ffldval)}}
+                                {{  ff_widget.af_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,false,"",ffldval)}}
+                                {{  ff_widget.af_select((ffldid),ffldname, field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,false,'',ffldval)}}
                                 {% elseif field.type=='checkbox' %}
-                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,true,"",ffldval)}}
+                                {{  ff_widget.af_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,true,"",ffldval)}}
                                 {% elseif field.type=='textarea' %}
-                                {{  ff_widget.uf_textarea(ffldid,ffldname, field.label, "sr-only","dbf_textarea"~field.class,field.label,ffldval)}}
+                                {{  ff_widget.af_textarea(ffldid,ffldname, field.label, "sr-only","dbf_textarea"~field.class,field.label,ffldval)}}
                                 {% else %}
-                                {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "sr-only"~field.class,"",field.label,'','',ffldval) }}
+                                {{ ff_widget.af_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "sr-only"~field.class,"",field.label,'','',ffldval) }}
                                 {% endif %}
                             </td>
                         {% endif %}
@@ -61,7 +61,7 @@
             {% if (formattr.showsubmit | default('Y'))=='Y' %}
                 <tr>
                     <td colspan="{{fldcount}}">
-                        {{ ff_widget.input_button('btn_1','submit_id' , (formattr.fs|default('')),'btn-primary','Touchdown') }}
+                        {{ af_widget.input_button('btn_1','submit_id' , (formattr.fs|default('')),'btn-primary','Touchdown') }}
                     </td>
                 </tr>
             {% endif %}
