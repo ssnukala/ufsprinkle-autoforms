@@ -1,6 +1,6 @@
 <?php
 
-namespace UserFrosting\Sprinkle\FormGenerator;
+namespace UserFrosting\Sprinkle\AutoForms;
 
 /**
  * The FormGenerator class, which is used to return the `form` part of a Fortress

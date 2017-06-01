@@ -3,16 +3,16 @@
 /**
  * SN DB Forms (http://www.srinivasnukala.com)
  *
- * @link      https://github.com/ssnukala/ufsprinkle-sndbforms/
+ * @link      https://github.com/ssnukala/ufsprinkle-autoforms/
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
 
-namespace UserFrosting\Sprinkle\SnDbForms\Model\Migrations\v400;
+namespace UserFrosting\Sprinkle\AutoForms\Model\Migrations\v400;
 
 use UserFrosting\System\Bakery\Migrations\UFMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
-use UserFrosting\Sprinkle\SnDbForms\Model\Formfields;
+use UserFrosting\Sprinkle\AutoForms\Model\Formfields;
 
 /**
  * Formfields table migration

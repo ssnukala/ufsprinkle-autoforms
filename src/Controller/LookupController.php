@@ -2,11 +2,11 @@
 /**
  * Lookup values from Database
  *
- * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
+ * @link      https://github.com/ssnukala/ufsprinkle-autoforms
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
 
-namespace UserFrosting\Sprinkle\SnDbForms\Controller;
+namespace UserFrosting\Sprinkle\AutoForms\Controller;
 
 use Carbon\Carbon;
 use UserFrosting\Sprinkle\Core\Controller\SimpleController;

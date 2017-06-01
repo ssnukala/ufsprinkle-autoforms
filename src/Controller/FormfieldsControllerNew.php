@@ -3,11 +3,11 @@
 /**
  * Database based forms (http://srinivasnukala.com)
  *
- * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
+ * @link      https://github.com/ssnukala/ufsprinkle-autoforms
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
 
-namespace UserFrosting\Sprinkle\SnDbforms\Controller;
+namespace UserFrosting\Sprinkle\AutoForms\Controller;
 
 use Carbon\Carbon;
 use UserFrosting\Sprinkle\Core\Controller\SimpleController;
@@ -16,8 +16,8 @@ use UserFrosting\Sprinkle\Core\Util\EnvironmentInfo;
 use UserFrosting\Fortress\ServerSideValidator;
 use UserFrosting\Fortress\RequestSchema;
 use UserFrosting\Fortress\Adapter\JqueryValidationAdapter;
-use UserFrosting\Sprinkle\SnDbForms\Model\Formfields;
-use UserFrosting\Sprinkle\SnDbForms\Model\Lookup;
+use UserFrosting\Sprinkle\AutoForms\Model\Formfields;
+use UserFrosting\Sprinkle\AutoForms\Model\Lookup;
 
 /**
  * CDFormfieldsController
