@@ -20,6 +20,7 @@ use UserFrosting\Sprinkle\AutoForms\Model\AutoFormSource;
 use UserFrosting\Sprinkle\AutoForms\Model\Formfields;
 use UserFrosting\Sprinkle\AutoForms\Model\Lookup;
 use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
+use UserFrosting\Sprinkle\SnUtilities\Controller\SnDBUtilities as SnDbUtil;
 
 /**
  * FormfieldsController
@@ -77,8 +78,10 @@ class FormfieldsController extends SimpleController {
 //        $this->_fields = $cur_ff_table['fields'];
 //        $this->_db_columns = array_keys($this->_fields);
         $this->initializePageFields();
-        Debug::debug("Line 80 Fields when initialized", $this->_fields);
-//logarr($this->_db_columns,"Line 81 Columns when initialized");        
+//        Debug::debug("Line 80 Fields when initialized", $this->_fields);
+//logarr($this->_db_columns,"Line 81 Columns when initialized");  
+SnDbUtil::getMigrationDataArray('sevak_formfields');        
+        
     }
 
     public function getFields() {
