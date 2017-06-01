@@ -2,12 +2,12 @@
 /**
  * UserFrosting (http://www.srinivasnukala.com)
  *
- * @link      https://github.com/ssnukala/ufsprinkle-sndbforms
+ * @link      https://github.com/ssnukala/ufsprinkle-autoforms
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
 
  **/
 
-namespace UserFrosting\Sprinkle\SnDbForms\Model;
+namespace UserFrosting\Sprinkle\AutoForms\Model;
 use \Illuminate\Database\Capsule\Manager as Capsule; 
 use UserFrosting\Sprinkle\Core\Model\UFModel;
 

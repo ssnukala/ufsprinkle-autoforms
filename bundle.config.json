@@ -1,6 +1,6 @@
 {
     "bundle": {
-        "js/sndbforms": {
+        "js/autoforms": {
             "scripts": [
                 "vendor/bootstrap-multiselect/dist/js/bootstrap-multiselect.js",
                 "vendor/fuelux/dist/js/fuelux.js"
@@ -13,7 +13,7 @@
                 }
             }
         },
-        "css/sndbforms": {
+        "css/autoforms": {
             "styles": [
                 "vendor/fuelux/dist/css/fuelux.css",
                 "vendor/bootstrap-multiselect/dist/css/bootstrap-multiselect.css"
