@@ -1,6 +1,5 @@
 {% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
-<h3>FF Page - Default TABLE HTML </h3>
-{% if showform  %}
+{% if formattr.showform  %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           role="form" method="post" action='{{formattr.action}}'>
         <input type='hidden' name='fs' value='{{formattr.fs|default('')}}'>

@@ -82,7 +82,6 @@ class FormfieldsController extends SimpleController {
 //        Debug::debug("Line 80 Fields when initialized", $this->_fields);
 //logarr($this->_db_columns,"Line 81 Columns when initialized");  
 //SnDbUtil::getMigrationDataArray('sevak_formfields'," ORDER BY source,edit_group");        
-        
     }
 
     public function getFields() {
@@ -189,8 +188,8 @@ class FormfieldsController extends SimpleController {
     }
 
     public function getFFHTML($params) {
-SnUtil::logtxt("Line 116 rendernig the page now " . $this->_html_template);
-        $params['fields']=$this->_fields;
+        SnUtil::logtxt("Line 116 rendernig the page now " . $this->_html_template);
+        $params['fields'] = $this->_fields;
         $this->_ffpage['html'] = $this->ci->view->fetch($this->_html_template, [
             'page' => [
                 'image_path' => "/ilist",
@@ -213,18 +212,15 @@ SnUtil::logtxt("Line 116 rendernig the page now " . $this->_html_template);
     }
 
     public function getFFJS($params) {
-//error_log("Line 139 js page is ".$this->_js_template); 
-//            $var_validators=[];
-//            $var_validators['rules']=$this->_rules;
-//            $var_validators['messages']=$this->_messages;
         $validators = $this->_validators;
+        $params['fields'] = $this->_fields;
         $this->_ffpage['js'] = $this->ci->view->fetch($this->_js_template, [
             'validators' => $validators,
-            'fields' => $this->_fields,
+//            'fields' => $this->_fields,
             'source' => $this->_source,
             'captcha' => false,
             'prefix' => $this->_page_prefix,
-            'params' => $params
+            'formattr' => $params
         ]);
     }
 
