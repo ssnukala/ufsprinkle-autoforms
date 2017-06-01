@@ -1,4 +1,6 @@
 {% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
+{{formattr.source}}
+<h3>FF Page - Default HTML </h3>
 {% if (formattr.showform | default('Y'))=='Y' %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           action='{{formattr.action}}'  role="form" method="post">
@@ -7,18 +9,18 @@
     {% set fldcount = 0 %}
     {% for fid, field in formattr.fields  if ( field.showin_editform =='Y') %}
         {# macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", include_blank=true,other_att="", size="") #}
-        {% set ffldid = prefix~'_'~field.db_name %}
+        {% set ffldid = prefix~'_'~field.db_field %}
         {% if formattr.array_prefix is empty %}
-            {% set ffldname = field.db_name %}
-            {% set ffldval = formattr.data[field.db_name] %}
+            {% set ffldname = field.db_field %}
+            {% set ffldval = formattr.data[field.db_field] %}
         {% else %}
-            {% set ffldname = formattr.array_prefix~'['~field.db_name~']' %}
-            {% set ffldval = formattr.data[formattr.array_prefix][field.db_name] %}
+            {% set ffldname = formattr.array_prefix~'['~field.db_field~']' %}
+            {% set ffldval = formattr.data[formattr.array_prefix][field.db_field] %}
         {% endif %}
-        {% if ffldval is empty  and field.db_name=='user_id' %}
+        {% if ffldval is empty  and field.db_field=='user_id' %}
             {% set ffldval = user.id %}
         {% endif %}
-        {% if field.hidden=='Y' %}
+        {% if field.visible=='N' %}
             <input type="hidden" name='{{ffldname}}' id='{{ffldid}}' value='{{ffldval}}'>
         {%else %}
             {% if fldcount == 0 %}

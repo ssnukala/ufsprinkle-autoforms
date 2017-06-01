@@ -21,6 +21,7 @@ use UserFrosting\Sprinkle\AutoForms\Model\Formfields;
 use UserFrosting\Sprinkle\AutoForms\Model\Lookup;
 use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
 use UserFrosting\Sprinkle\SnUtilities\Controller\SnDBUtilities as SnDbUtil;
+use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
 
 /**
  * FormfieldsController
@@ -80,7 +81,7 @@ class FormfieldsController extends SimpleController {
         $this->initializePageFields();
 //        Debug::debug("Line 80 Fields when initialized", $this->_fields);
 //logarr($this->_db_columns,"Line 81 Columns when initialized");  
-SnDbUtil::getMigrationDataArray('sevak_formfields');        
+//SnDbUtil::getMigrationDataArray('sevak_formfields');        
         
     }
 
@@ -157,7 +158,7 @@ SnDbUtil::getMigrationDataArray('sevak_formfields');
 
     public function getFFPageHTMLJS($pageparams = [], $htmlonly = false) {
         $this->createFormfieldPage($pageparams, $htmlonly);
-//logarr($this->_ffpage,"Line 104 returning ffpage array");        
+SnUtil::logarr($this->_ffpage,"Line 104 returning ffpage array");        
         return $this->_ffpage;
     }
 
@@ -177,27 +178,28 @@ SnDbUtil::getMigrationDataArray('sevak_formfields');
      */
     public function createFormfieldPage($pageparams = [], $htmlonly = false) {
 
+SnUtil::logarr($pageparams,"Line 133 pageparams ");
+SnUtil::logarr($this->_fields,"Line 116 rendernig the page now ".$this->_html_template);   
         $this->getFFHTML($pageparams);
         $this->getValidators();
         if (!$htmlonly) {
             $this->getFFJS($pageparams);
         }
 //        $settings = $this->_app->site;
-//logarr($pageparams,"Line 133 pageparams ");
-//logarr($this->_fields,"Line 116 rendernig the page now ".$this->_html_template);   
     }
 
     public function getFFHTML($params) {
-        error_log("Line 116 rendernig the page now " . $this->_html_template);
+SnUtil::logtxt("Line 116 rendernig the page now " . $this->_html_template);
+        $params['fields']=$this->_fields;
         $this->_ffpage['html'] = $this->ci->view->fetch($this->_html_template, [
             'page' => [
                 'image_path' => "/ilist",
             ],
 //            'captcha_image' => $this->generateCaptcha(),
-            'fields' => $this->_fields,
+//            'fields' => $this->_fields,
             'source' => $this->_source,
             'prefix' => $this->_page_prefix,
-            'params' => $params
+            'formattr' => $params
         ]);
     }
 

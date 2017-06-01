@@ -13,6 +13,7 @@ namespace UserFrosting\Sprinkle\AutoForms\Model;
 use \Illuminate\Database\Capsule\Manager as Capsule;
 use UserFrosting\Sprinkle\Core\Model\UFModel;
 use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
+use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
 
 class Formfields extends UFModel {
 
@@ -47,7 +48,7 @@ class Formfields extends UFModel {
                 ->orderBy('seq', $par_orderdir)
                 ->get();
         $resultArr = $resultArr_obj->toArray();
-//logarr($resultArr,"Line 62 returning from formfields table $table");        
+Debug::debug("Line 62 returning from formfields table $table",$resultArr); 
         $var_classfields = $var_fields = array();
         $var_primarykey = 'none';
         foreach ($resultArr as $var_rowid => $var_fldrec) {

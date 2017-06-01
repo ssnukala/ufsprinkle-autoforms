@@ -1,4 +1,4 @@
-{% import "widgets/ffpage-macros.html.twig" as ff_widget %}
+{% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
 {% if showform  %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           role="form" method="post" action='{{formattr.action}}'>
@@ -8,7 +8,7 @@
         <table class="table table-bordered">
             <tr>
                 <th></th>
-                    {% for fid, field in formattr.fields if (field.hidden!='Y' and field.showin_editform =='Y') %}
+                    {% for fid, field in formattr.fields if (field.visible=='Y' and field.showin_editform =='Y') %}
                     <th>{{field.label}}</th>
                     {% endfor %}
             </tr>
@@ -23,16 +23,16 @@
                     {% set fldcount = 1 %}
                     {% for fid, field in fields if ( field.showin_editform =='Y') %}
                         {% if formattr.form_array is empty %}
-                            {% set ffldname = (prefix~'['~rhead.value~']['~field.db_name~']') %}
-                            {% set ffldval = formattr.data[rhead.value][field.db_name] %}
-                        {% set fldid = (prefix~'_'~field.db_name~fldcount) %}
+                            {% set ffldname = (prefix~'['~rhead.value~']['~field.db_field~']') %}
+                            {% set ffldval = formattr.data[rhead.value][field.db_field] %}
+                        {% set fldid = (prefix~'_'~field.db_field~fldcount) %}
                         {% else %}
-                            {% set ffldname = formattr.form_array~'['~rhead.value~']['~field.db_name~']' %}
-                            {% set ffldval = formattr.data[formattr.form_array][rhead.value][field.db_name] %}
-                            {% set ffldid = (prefix~formattr.form_array~'_'~field.db_name~fldcount) %}
+                            {% set ffldname = formattr.form_array~'['~rhead.value~']['~field.db_field~']' %}
+                            {% set ffldval = formattr.data[formattr.form_array][rhead.value][field.db_field] %}
+                            {% set ffldid = (prefix~formattr.form_array~'_'~field.db_field~fldcount) %}
                         {% endif %}
 
-                        {% if field.hidden=='Y' %}
+                        {% if field.visible=='N' %}
                         <input type="hidden" name='{{ffldname}}' value="" >
                         {%else %}
                             <td>
@@ -44,14 +44,14 @@
                         {% endif %}
                                 {# uf_select(id, name, label, option_array, lclass, iclass, help='',value="", include_blank=true,other_att="", size="",multiple=false) #}
                                 {%if field.type=='select' %}
-                                {{  ff_widget.af_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,false,"",ffldval)}}
-                                {{  ff_widget.af_select((ffldid),ffldname, field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,false,'',ffldval)}}
+                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,false,"",ffldval)}}
+                                {{  ff_widget.uf_select((ffldid),ffldname, field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,false,'',ffldval)}}
                                 {% elseif field.type=='checkbox' %}
-                                {{  ff_widget.af_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,true,"",ffldval)}}
+                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,true,"",ffldval)}}
                                 {% elseif field.type=='textarea' %}
-                                {{  ff_widget.af_textarea(ffldid,ffldname, field.label, "sr-only","dbf_textarea"~field.class,field.label,ffldval)}}
+                                {{  ff_widget.uf_textarea(ffldid,ffldname, field.label, "sr-only","dbf_textarea"~field.class,field.label,ffldval)}}
                                 {% else %}
-                                {{ ff_widget.af_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "sr-only"~field.class,"",field.label,'','',ffldval) }}
+                                {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "sr-only"~field.class,"",field.label,'','',ffldval) }}
                                 {% endif %}
                             </td>
                         {% endif %}
@@ -61,7 +61,7 @@
             {% if (formattr.showsubmit | default('Y'))=='Y' %}
                 <tr>
                     <td colspan="{{fldcount}}">
-                        {{ af_widget.input_button('btn_1','submit_id' , (formattr.fs|default('')),'btn-primary','Touchdown') }}
+                        {{ ff_widget.uf_button('btn_1','submit_id' , (formattr.fs|default('')),'btn-primary','Touchdown') }}
                     </td>
                 </tr>
             {% endif %}
