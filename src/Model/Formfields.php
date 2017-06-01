@@ -42,7 +42,7 @@ class Formfields extends UFModel {
         "status"];
 
     public static function getFieldDefinitions($table, $status = 'A', $par_orderdir = 'ASC') {
-        $resultArr_obj = self::where('table_name', '=', $table)
+        $resultArr_obj = self::where('source', '=', $table)
                 ->where('status', '=', $status)
                 ->orderBy('seq', $par_orderdir)
                 ->get();
@@ -51,7 +51,7 @@ class Formfields extends UFModel {
         $var_classfields = $var_fields = array();
         $var_primarykey = 'none';
         foreach ($resultArr as $var_rowid => $var_fldrec) {
-            $var_dbfld = $var_fldrec['db_name'];
+            $var_dbfld = $var_fldrec['db_field'];
             $var_fields[$var_dbfld] = $var_fldrec;
             if ($var_fldrec['primary_key'] == 'Y' && $var_primarykey == 'none') {
 //echobr("Setting primary key now to $var_dbfld");
