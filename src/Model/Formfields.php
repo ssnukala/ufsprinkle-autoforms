@@ -18,12 +18,11 @@ class Formfields extends UFModel {
 
     protected $table = "sevak_formfields";
     protected $fillable = ["form_prefix",
-        "table_name",
-        "seq",
-        "db_name",
+        "source",
+        "db_field",
         "value_type",
         "edit_group",
-        "hidden",
+        "visible",
         "orderable",
         "type",
         "lookup_cat",
@@ -35,13 +34,11 @@ class Formfields extends UFModel {
         "size1",
         "size2",
         "default",
-        "empty_check",
         "searchable",
+        "search_function",
         "search_group",
         "showin_searchresult",
         "result_group",
-        "search_function",
-        "showin_shortform",
         "status"];
 
     public static function getFieldDefinitions($table, $status = 'A', $par_orderdir = 'ASC') {
