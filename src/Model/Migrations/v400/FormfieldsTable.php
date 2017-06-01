@@ -51,9 +51,6 @@ class FormfieldsTable extends UFMigration {
                 $table->string('validation_json', 1000)->nullable();
                 $table->string('default', 255)->nullable();
                 $table->char('search_function', 50)->nullable();
-                $table->decimal('search_group', 5, 2)->default('0.00');
-                $table->char('showin_result', 1)->default('N');
-                $table->decimal('result_group', 5, 2)->nullable();
                 $table->char('status', 1)->default('A');
                 $table->string('updated_by', 20)->nullable();
                 $table->string('created_by', 20)->nullable();

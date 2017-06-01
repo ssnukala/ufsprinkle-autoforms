@@ -58,10 +58,7 @@ class Formfields extends UFModel {
                 $var_primarykey = $var_dbfld;
             }
             if ($var_fldrec['searchable'] == 'Y') {
-                $var_classfields['search_fields'][$var_dbfld] = $var_fldrec['search_group'];
-            }
-            if ($var_fldrec['showin_searchresult'] == 'Y') {
-                $var_classfields['result_fields'][$var_dbfld] = $var_fldrec['result_group'];
+                $var_classfields['search_fields'][$var_dbfld] = $var_fldrec['edit_group'];
             }
             if ($var_fldrec['showin_editform'] == 'Y') {
                 $var_classfields['edit_fields'][$var_dbfld] = $var_fldrec['edit_group'];
@@ -70,8 +67,6 @@ class Formfields extends UFModel {
 //echoarr($var_classfields[$par_table],"Line 618 classfields array");
         if (isset($var_classfields['search_fields']))
             asort($var_classfields['search_fields']); // sort the search fields by serarch group
-        if (isset($var_classfields['result_fields']))
-            asort($var_classfields['result_fields']); // sort the edit fields by result group
         if (isset($var_classfields['edit_fields']))
             asort($var_classfields['edit_fields']); // sort the edit fields by edit group
 
