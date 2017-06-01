@@ -32,6 +32,7 @@ class FormfieldsTable extends UFMigration {
             $this->schema->create('sevak_formfields', function(Blueprint $table) {
 
                 $table->increments('id');
+                $table->string('form_prefix', 10);
                 $table->string('source', 100);
                 $table->integer('seq')->default('0');
                 $table->string('db_field', 200);
