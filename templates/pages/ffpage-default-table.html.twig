@@ -1,4 +1,5 @@
 {% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
+<h3>FF Page - Default TABLE HTML </h3>
 {% if showform  %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           role="form" method="post" action='{{formattr.action}}'>
@@ -21,7 +22,7 @@
                         <strong>{{rhead.text}}</strong>
                     </td>
                     {% set fldcount = 1 %}
-                    {% for fid, field in fields if ( field.showin_editform =='Y') %}
+                    {% for fid, field in formattr.fields if ( field.showin_editform =='Y') %}
                         {% if formattr.form_array is empty %}
                             {% set ffldname = (prefix~'['~rhead.value~']['~field.db_field~']') %}
                             {% set ffldval = formattr.data[rhead.value][field.db_field] %}
@@ -44,14 +45,14 @@
                         {% endif %}
                                 {# uf_select(id, name, label, option_array, lclass, iclass, help='',value="", include_blank=true,other_att="", size="",multiple=false) #}
                                 {%if field.type=='select' %}
-                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,false,"",ffldval)}}
-                                {{  ff_widget.uf_select((ffldid),ffldname, field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,false,'',ffldval)}}
+                                {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.lable_class, field.class,false,"",ffldval)}}
+{#  ff_widget.uf_select((ffldid),ffldname, field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,false,'',ffldval) #}
                                 {% elseif field.type=='checkbox' %}
                                 {{  ff_widget.uf_select(ffldid,ffldname, field.label, field.options, "sr-only "~field.class,true,"",ffldval)}}
                                 {% elseif field.type=='textarea' %}
                                 {{  ff_widget.uf_textarea(ffldid,ffldname, field.label, "sr-only","dbf_textarea"~field.class,field.label,ffldval)}}
                                 {% else %}
-                                {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "sr-only"~field.class,"",field.label,'','',ffldval) }}
+                                {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,'', "sr-only"~field.class,"",field.label,'','',ffldval) }}
                                 {% endif %}
                             </td>
                         {% endif %}

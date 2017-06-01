@@ -81,7 +81,7 @@ class FormfieldsController extends SimpleController {
         $this->initializePageFields();
 //        Debug::debug("Line 80 Fields when initialized", $this->_fields);
 //logarr($this->_db_columns,"Line 81 Columns when initialized");  
-//SnDbUtil::getMigrationDataArray('sevak_formfields');        
+//SnDbUtil::getMigrationDataArray('sevak_formfields'," ORDER BY source,edit_group");        
         
     }
 
@@ -158,7 +158,7 @@ class FormfieldsController extends SimpleController {
 
     public function getFFPageHTMLJS($pageparams = [], $htmlonly = false) {
         $this->createFormfieldPage($pageparams, $htmlonly);
-SnUtil::logarr($this->_ffpage,"Line 104 returning ffpage array");        
+//SnUtil::logarr($this->_ffpage,"Line 104 returning ffpage array");        
         return $this->_ffpage;
     }
 
@@ -178,8 +178,8 @@ SnUtil::logarr($this->_ffpage,"Line 104 returning ffpage array");
      */
     public function createFormfieldPage($pageparams = [], $htmlonly = false) {
 
-SnUtil::logarr($pageparams,"Line 133 pageparams ");
-SnUtil::logarr($this->_fields,"Line 116 rendernig the page now ".$this->_html_template);   
+//SnUtil::logarr($pageparams,"Line 133 pageparams ");
+//SnUtil::logarr($this->_fields,"Line 116 rendernig the page now ".$this->_html_template);   
         $this->getFFHTML($pageparams);
         $this->getValidators();
         if (!$htmlonly) {
