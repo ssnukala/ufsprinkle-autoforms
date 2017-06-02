@@ -14,7 +14,7 @@ use UserFrosting\Sprinkle\Core\Model\UFModel;
 class Lookup extends UFModel {
     protected $table = "sevak_lookup";
 
-    protected $fillable = ['category','value','diaplay_value','sort_order','status'];
+    protected $fillable = ['category','value','display_value','value_type', 'sort_order','status'];
         
     public static function getLookupValues($category,$catcondition='=',$status='A', $par_orderdir = 'ASC') {
         if(strtolower($catcondition)=='in')

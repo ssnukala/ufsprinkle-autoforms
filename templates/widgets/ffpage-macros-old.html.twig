@@ -10,6 +10,71 @@
     {% endif %}
 {% endmacro %}
 
+{% macro addrsearch_google(id, name, label, lclass, iclass, addon='fa-map-marker', placeholder="",size="",  other_att="",  showform='N',target='',method='post',postdata=[],csrf_key='',csrf_token='') %}
+    {% if showform=='Y'%}
+        <form id='{{id}}' name="{{name}}"  method="{{method}}" action="{{target}}" 
+              class="longaddr_form google_addrform form-horizontal {{class}} ">
+            <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"> 
+        {% endif %}
+        <input type="hidden" name="auto_geocode" value="google"> 
+        <label for="{{id}}" class="control-label {{lclass}} text-right">{{label}}</label>
+        <div class="{{iclass}}">
+            {% if addon =='location' %}
+                <div class="input-group">
+                    <span class="input-group-btn" style="border: 1px solid lightgray;">
+                        <button class="btn_curloc btn btn-home  btn-primary" name="btn_curloc" id1='getcomp_curloc_i'  
+                                data-loading-text="Please wait..." type="button" title='Use my current location'>
+                            <span class="glyphicon glyphicon-screenshot"></span>
+                        </button>
+                    </span>
+                {% elseif addon is not empty %}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="{{addon}}"></i></span>
+                        {% endif %}
+                    <input type="text" placeholder="House No Street, City, State Zip" autocomplete="off"
+                           value="{{ postdata.full_address is defined ? postdata.full_address:''}}"
+                           id="geocomplete_google" name='full_address' class=" input-sm form-control geocomplete full_address "> 
+                    {% if addon =='location' %}
+                        <span class="input-group-btn" style="border: 1px solid lightgray;">
+                            <button class="btn btn-home  btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div> 
+                {% elseif addon is not empty %}
+                </div>
+            {%else %}
+            </div>
+
+        {% endif %}
+        </div>
+        <input name="geocode[name]" type="hidden" value="">
+        <input name="geocode[point_of_interest]" type="hidden" value="">
+        <input name="geocode[lat]" type="hidden" value="">
+        <input name="geocode[lng]" type="hidden" value="">
+        <input name="geocode[location]" type="hidden" value="">
+        <input name="geocode[location_type]" type="hidden" value="">
+        <input name="geocode[formatted_address]" type="hidden" value="">
+        <input name="geocode[bounds]" type="hidden" value="">
+        <input name="geocode[viewport]" type="hidden" value="">
+        <input name="geocode[route]" type="hidden" value="">
+        <input name="geocode[street_number]" type="hidden" value="">
+        <input name="geocode[postal_code]" type="hidden" value="">
+        <input name="geocode[locality]" type="hidden" value="">
+        <input name="geocode[sublocality]" type="hidden" value="">
+        <input name="geocode[country]" type="hidden" value="">
+        <input name="geocode[country_short]" type="hidden" value="">
+        <input name="geocode[administrative_area_level_1]" type="hidden" value="">
+        <input name="geocode[id]" type="hidden" value="">
+        <input name="geocode[reference]" type="hidden" value="">
+        <input name="geocode[url]" type="hidden" value="">
+        <input name="geocode[website]" type="hidden" value="">
+        {% if showform=='Y'%}
+        </form>
+    {% endif %}
+{% endmacro %}
+
+
 {% macro uf_inputtext(type, id, name, label, addon, lclass, iclass,placeholder="", other_att="", size="", value="", atuocomplete="") %}
     {#     <div class="form-group"> #}
     <label for="{{id}}" class="control-label {{lclass}} text-right">{{label}}</label>
@@ -20,8 +85,8 @@
                 {% endif %}
             <input type="{% if type in ['date','datetime'] %}text{% elseif type in ['staticinput'] %}hidden{%else%}{{type}}{% endif %}" 
                    {% if type not in ['staticinput'] %}
-                        class=" input-sm form-control {% if type in ['date','datetime'] %} datepicker {% endif %} " 
-                        placeholder="{{placeholder}}"
+                       class=" input-sm form-control {% if type in ['date','datetime'] %} datepicker {% endif %} " 
+                       placeholder="{{placeholder}}"
                    {% endif %}
                    name="{{name}}" 
                    id="{{id}}"   value="{% if type in ['date','datetime'] %}{% if value is not empty %}{{value|date('m/d/Y')}}{% endif %}{% else %}{{value}}{%endif%}" 
@@ -32,9 +97,9 @@
                        autocomplete="{{atuocomplete}}" 
                    {% endif %}
                    {{other_att}} {% if type in ['number'] %} min="0" {% endif %}>
-                   {% if type in ['staticinput'] %}
-                           <p class='form-control' id='{{id}}_text' style="width:100%;">{{value}}</p>
-                   {% endif %}
+            {% if type in ['staticinput'] %}
+                <p class='form-control' id='{{id}}_text' style="width:100%;">{{value}}</p>
+            {% endif %}
             {% if addon is not empty %}
             </div>
         {% endif %}
@@ -55,101 +120,101 @@
 
 {% macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", 
 include_blank=true,other_att="", size="") %}
-    {#    <div class="form-group"> #}
-    <label class="text-right control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
-    <div class="{{iclass}}">
-        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
-                 {% if multiple %}multiple="multiple"{% endif %}>
-            {% set selvalue = 'selected' %}
-            {% for seloption in option_array %}
-                <option value="{{seloption.value}}" 
-                        {% if value is iterable %}
-                            {% if seloption.value in value%} {{selvalue}}{%endif%}
-                        {% elseif multiple and value|split(',') is iterable %}
-                            {% if seloption.value in value|split(',')%} {{selvalue}}{%endif%}
-                        {% elseif value == seloption.value %}{{selvalue}}
-                             {% if not multiple %} {% set selvalue = '' %}{%endif%}
-                        {% endif %}
-                        >{{ seloption.text|default(seloption.value) }}</option>
-            {% endfor %}
-            {% if include_blank and not multiple %}
-                <option disabled {{selvalue}}></option>
-            {% endif %}
-        </select>
-        {% if help is not empty %}
-            <p class="help-block">{{help}}</p>
-        {% endif %}
-    </div>
-    {#    </div> #}
-{% endmacro %}
-
-{% macro uf_select_generic(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", 
-include_blank=true,other_att="", size="") %}
-    <label class="control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
-    <div class="{{iclass}}">
-        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
-                 {% if multiple %}multiple="multiple"{% endif %}>
-            {% set ovalue=option_array.value %}
-            {% set oid=option_array.key %}
-            
-            {% for seloption in option_array.data %}
-                <option value="{{ seloption[oid] }}" {% if value == seloption[oid] %}selected{% endif %}>{{ seloption[ovalue]|default('') }}</option>
-            {% endfor %}
-            {% if include_blank and not multiple %}
-                <option disabled selected></option>
-            {% endif %}
-        </select>
-    </div>
-{% endmacro %}
-
-{% macro uf_select_action(frmname, frmaction, frmid,frmclass, id, name, label, option_array, lclass, iclass,onbtnclick, multiple=false, help='',value="", 
-include_blank=true,other_att="", size="") %}
-    <form name="{{frmname}}" id='{{frmid}}' class="{{frmclass}} form form-compact form-horizontal" 
-          action='{{frmaction}}'  role="form" method="post">
-
-    <label class="control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
-    <div class="{{iclass}}">
-    <div class="input-group">
-        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
-                 {% if multiple %}multiple="multiple"{% endif %}>
-            {% set ovalue=option_array.value %}
-            {% set oid=option_array.key %}
-            
-            {% for seloption in option_array.data %}
-                <option value="{{ seloption[oid] }}" {% if value == seloption[oid] %}selected{% endif %}>{{ seloption[ovalue]|default('') }}</option>
-            {% endfor %}
-            {% if include_blank and not multiple %}
-                <option disabled selected></option>
-            {% endif %}
-        </select>
-      <span class="input-group-btn">
-        <button class="btn btn-primary" {% if onbtnclick is defined %} onClick='{{onbtnclick|raw}}' {% endif %} >Go!</button>
-      </span>
-    </div><!-- /input-group -->        
-        
-    </div>
-    </form>
-{% endmacro %}
-    
-    
-{% macro uf_checkbox(id, name, label, option_array, lclass,iclass, help='',value="", other_att="", size="",inline=false) %}
-    <label class="control-label {{lclass}}">{{ label }}</label>
-    <div class="{{iclass}}">
+{#    <div class="form-group"> #}
+<label class="text-right control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
+<div class="{{iclass}}">
+    <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
+            {% if multiple %}multiple="multiple"{% endif %}>
+        {% set selvalue = 'selected' %}
         {% for seloption in option_array %}
-            <div class="input-group {% if inline %}checkbox-inline{% endif %}">
-                <input id="{{id | default("ck_" ~ name ~ "_i" ) }}"   name="{{name}}[]"  type="checkbox" class='input-sm'
-                       value="{{seloption.value}}" {% if value == seloption.value %}checked{% endif %} >
-                {{ seloption.text|default(seloption.value) }}
-            </div>
+            <option value="{{seloption.value}}" 
+                    {% if value is iterable %}
+                        {% if seloption.value in value%} {{selvalue}}{%endif%}
+                    {% elseif multiple and value|split(',') is iterable %}
+                        {% if seloption.value in value|split(',')%} {{selvalue}}{%endif%}
+                    {% elseif value == seloption.value %}{{selvalue}}
+                        {% if not multiple %} {% set selvalue = '' %}{%endif%}
+                    {% endif %}
+                    >{{ seloption.text|default(seloption.value) }}</option>
         {% endfor %}
-        {% if help is not empty %}
-            <p class="help-block">{{help}}</p>
+        {% if include_blank and not multiple %}
+            <option disabled {{selvalue}}></option>
         {% endif %}
-    </div>
+    </select>
+    {% if help is not empty %}
+        <p class="help-block">{{help}}</p>
+    {% endif %}
+</div>
+{#    </div> #}
 {% endmacro %}
 
-{% macro uf_button(id, name, value, class, label) %}
-    <button type="submit" id="{{id | default('btn_' ~ name ~ '_i' ) }}" 
-        value='{{value}}'    name="{{ name }}" class="btn {{class|default('btn-primary')}}">{{label}}
-    </button>
-{% endmacro %}
+    {% macro uf_select_generic(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", 
+include_blank=true,other_att="", size="") %}
+    <label class="control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
+    <div class="{{iclass}}">
+        <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
+                {% if multiple %}multiple="multiple"{% endif %}>
+            {% set ovalue=option_array.value %}
+            {% set oid=option_array.key %}
+
+            {% for seloption in option_array.data %}
+                <option value="{{ seloption[oid] }}" {% if value == seloption[oid] %}selected{% endif %}>{{ seloption[ovalue]|default('') }}</option>
+            {% endfor %}
+            {% if include_blank and not multiple %}
+                <option disabled selected></option>
+            {% endif %}
+        </select>
+    </div>
+    {% endmacro %}
+
+        {% macro uf_select_action(frmname, frmaction, frmid,frmclass, id, name, label, option_array, lclass, iclass,onbtnclick, multiple=false, help='',value="", 
+include_blank=true,other_att="", size="") %}
+        <form name="{{frmname}}" id='{{frmid}}' class="{{frmclass}} form form-compact form-horizontal" 
+              action='{{frmaction}}'  role="form" method="post">
+
+            <label class="control-label {{lclass}}" for="{{id | default("sel_" ~ name ~ "_i" ) }}">{{ label }}</label>
+            <div class="{{iclass}}">
+                <div class="input-group">
+                    <select id="{{id | default("sel_" ~ name ~ "_i" ) }}"  name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if multiple %}bootstrap-multiselect{% endif %}"
+                            {% if multiple %}multiple="multiple"{% endif %}>
+                        {% set ovalue=option_array.value %}
+                        {% set oid=option_array.key %}
+
+                        {% for seloption in option_array.data %}
+                            <option value="{{ seloption[oid] }}" {% if value == seloption[oid] %}selected{% endif %}>{{ seloption[ovalue]|default('') }}</option>
+                        {% endfor %}
+                        {% if include_blank and not multiple %}
+                            <option disabled selected></option>
+                        {% endif %}
+                    </select>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" {% if onbtnclick is defined %} onClick='{{onbtnclick|raw}}' {% endif %} >Go!</button>
+                    </span>
+                </div><!-- /input-group -->        
+
+            </div>
+        </form>
+        {% endmacro %}
+
+
+            {% macro uf_checkbox(id, name, label, option_array, lclass,iclass, help='',value="", other_att="", size="",inline=false) %}
+                <label class="control-label {{lclass}}">{{ label }}</label>
+                <div class="{{iclass}}">
+                    {% for seloption in option_array %}
+                        <div class="input-group {% if inline %}checkbox-inline{% endif %}">
+                            <input id="{{id | default("ck_" ~ name ~ "_i" ) }}"   name="{{name}}[]"  type="checkbox" class='input-sm'
+                                   value="{{seloption.value}}" {% if value == seloption.value %}checked{% endif %} >
+                            {{ seloption.text|default(seloption.value) }}
+                        </div>
+                    {% endfor %}
+                    {% if help is not empty %}
+                        <p class="help-block">{{help}}</p>
+                    {% endif %}
+                </div>
+            {% endmacro %}
+
+            {% macro uf_button(id, name, value, class, label) %}
+                <button type="submit" id="{{id | default('btn_' ~ name ~ '_i' ) }}" 
+                        value='{{value}}'    name="{{ name }}" class="btn {{class|default('btn-primary')}}">{{label}}
+                </button>
+            {% endmacro %}

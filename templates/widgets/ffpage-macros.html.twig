@@ -10,6 +10,56 @@
     {% endif %}
 {% endmacro %}
 
+{% macro addrsearch_google(id, name, class, target='',method='post',postdata=[],showform='N',csrf_key='',csrf_token='') %}
+    {% if showform=='Y'%}
+    <form id='{{id}}' name="{{name}}"  method="{{method}}" action="{{target}}" 
+          class="longaddr_form google_addrform form-horizontal {{class}} ">
+        <input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}"> 
+    {% endif %}
+        <input type="hidden" name="auto_geocode" value="google"> 
+        <div class="input-group">
+            <span class="input-group-btn" style="border: 1px solid lightgray;">
+                <button class="btn_curloc btn btn-home  btn-primary" name="btn_curloc" id1='getcomp_curloc_i'  
+                        data-loading-text="Please wait..." type="button" title='Use my current location'>
+                    <span class="glyphicon glyphicon-screenshot"></span>
+                </button>
+            </span>
+            <input type="text" placeholder="House No Street, City, State Zip" autocomplete="off"
+                   value="{{ postdata.full_address is defined ? postdata.full_address:''}}"
+                   id="geocomplete_google" name='full_address' class="geocomplete full_address form-control"> 
+            <span class="input-group-btn" style="border: 1px solid lightgray;">
+                <button class="btn btn-home  btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>  
+        <input name="geocode[name]" type="hidden" value="">
+        <input name="geocode[point_of_interest]" type="hidden" value="">
+        <input name="geocode[lat]" type="hidden" value="">
+        <input name="geocode[lng]" type="hidden" value="">
+        <input name="geocode[location]" type="hidden" value="">
+        <input name="geocode[location_type]" type="hidden" value="">
+        <input name="geocode[formatted_address]" type="hidden" value="">
+        <input name="geocode[bounds]" type="hidden" value="">
+        <input name="geocode[viewport]" type="hidden" value="">
+        <input name="geocode[route]" type="hidden" value="">
+        <input name="geocode[street_number]" type="hidden" value="">
+        <input name="geocode[postal_code]" type="hidden" value="">
+        <input name="geocode[locality]" type="hidden" value="">
+        <input name="geocode[sublocality]" type="hidden" value="">
+        <input name="geocode[country]" type="hidden" value="">
+        <input name="geocode[country_short]" type="hidden" value="">
+        <input name="geocode[administrative_area_level_1]" type="hidden" value="">
+        <input name="geocode[id]" type="hidden" value="">
+        <input name="geocode[reference]" type="hidden" value="">
+        <input name="geocode[url]" type="hidden" value="">
+        <input name="geocode[website]" type="hidden" value="">
+    {% if showform=='Y'%}
+    </form>
+    {% endif %}
+{% endmacro %}
+
+
 {% macro af_inputtext(field) %}
     {#     <div class="form-group"> #}
     <label for="{{field.id}}" class="control-label {{field.lable_class}} text-right">{{field.label}}</label>

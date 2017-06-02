@@ -50,7 +50,8 @@ class FormfieldsController extends SimpleController {
     protected $_faarray = ['text' => 'fa fa-fw fa-edit', 'email' => 'fa fa-fw fa-envelope',
         'password' => 'fa fa-fw fa-key', 'captcha' => 'fa fa-fw fa-eye',
         'date' => 'fa fa-fw fa-calendar', 'datetime' => 'fa fa-fw fa-calendar',
-        'number' => 'fa fa-fw fa-hashtag', 'phone' => 'fa fa-fw fa-hashtag'];
+        'number' => 'fa fa-fw fa-hashtag', 'phone' => 'fa fa-fw fa-hashtag',
+        'google_address'=>"fa fa-fw fa-map-marker"];
 
     public function initializeFFController($source, $dbtable = '', $prefix = 'dbf_', $html_template = 'default', $js_template = 'default', $schema = 'default', $secure = false, $pagetype = 'form') {
         $this->_source = $source;

@@ -31,6 +31,8 @@
                     {{  ff_widget.uf_select((ffldid),(ffldname~'[]'), field.label, field.options, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,true,'',ffldval)}}
                 {% elseif field.type=='textarea' %}
                     {{  ff_widget.uf_textarea((ffldid),ffldname, field.label, "col-sm-2 "~field.lable_class,"col-sm-4 dbf_textarea "~field.class,field.label,ffldval)}}
+                {%elseif field.type=='google_address' %}
+{{  ff_widget.addrsearch_google(ffldid, ffldname, field.label, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,field.addon,field.label) }}
                 {% else %}
                     {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,field.label,'','',ffldval) }}
                 {% endif %}
