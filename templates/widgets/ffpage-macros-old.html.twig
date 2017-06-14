@@ -47,41 +47,43 @@
             </div>
 
         {% endif %}
-        </div>
-        <input name="geocode[name]" type="hidden" value="">
-        <input name="geocode[point_of_interest]" type="hidden" value="">
-        <input name="geocode[lat]" type="hidden" value="">
-        <input name="geocode[lng]" type="hidden" value="">
-        <input name="geocode[location]" type="hidden" value="">
-        <input name="geocode[location_type]" type="hidden" value="">
-        <input name="geocode[formatted_address]" type="hidden" value="">
-        <input name="geocode[bounds]" type="hidden" value="">
-        <input name="geocode[viewport]" type="hidden" value="">
-        <input name="geocode[route]" type="hidden" value="">
-        <input name="geocode[street_number]" type="hidden" value="">
-        <input name="geocode[postal_code]" type="hidden" value="">
-        <input name="geocode[locality]" type="hidden" value="">
-        <input name="geocode[sublocality]" type="hidden" value="">
-        <input name="geocode[country]" type="hidden" value="">
-        <input name="geocode[country_short]" type="hidden" value="">
-        <input name="geocode[administrative_area_level_1]" type="hidden" value="">
-        <input name="geocode[id]" type="hidden" value="">
-        <input name="geocode[reference]" type="hidden" value="">
-        <input name="geocode[url]" type="hidden" value="">
-        <input name="geocode[website]" type="hidden" value="">
-        {% if showform=='Y'%}
-        </form>
-    {% endif %}
+    </div>
+    <input name="geocode[name]" type="hidden" value="">
+    <input name="geocode[point_of_interest]" type="hidden" value="">
+    <input name="geocode[lat]" type="hidden" value="">
+    <input name="geocode[lng]" type="hidden" value="">
+    <input name="geocode[location]" type="hidden" value="">
+    <input name="geocode[location_type]" type="hidden" value="">
+    <input name="geocode[formatted_address]" type="hidden" value="">
+    <input name="geocode[bounds]" type="hidden" value="">
+    <input name="geocode[viewport]" type="hidden" value="">
+    <input name="geocode[route]" type="hidden" value="">
+    <input name="geocode[street_number]" type="hidden" value="">
+    <input name="geocode[postal_code]" type="hidden" value="">
+    <input name="geocode[locality]" type="hidden" value="">
+    <input name="geocode[sublocality]" type="hidden" value="">
+    <input name="geocode[country]" type="hidden" value="">
+    <input name="geocode[country_short]" type="hidden" value="">
+    <input name="geocode[administrative_area_level_1]" type="hidden" value="">
+    <input name="geocode[id]" type="hidden" value="">
+    <input name="geocode[reference]" type="hidden" value="">
+    <input name="geocode[url]" type="hidden" value="">
+    <input name="geocode[website]" type="hidden" value="">
+    {% if showform=='Y'%}
+    </form>
+{% endif %}
 {% endmacro %}
 
 
 {% macro uf_inputtext(type, id, name, label, addon, lclass, iclass,placeholder="", other_att="", size="", value="", atuocomplete="") %}
     {#     <div class="form-group"> #}
-    <label for="{{id}}" class="control-label {{lclass}} text-right">{{label}}</label>
-    <div class="{{iclass}}">
-        {% if addon is not empty %}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="{{addon}}"></i></span>
+    {% if addon !='field_only' %}
+        <label for="{{id}}" class="control-label {{lclass}} text-right">{{label}}</label>
+        <div class="{{iclass}}">
+            {% if addon is not empty %}
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="{{addon}}"></i></span>
+                    {% endif %}
                 {% endif %}
             <input type="{% if type in ['date','datetime'] %}text{% elseif type in ['staticinput'] %}hidden{%else%}{{type}}{% endif %}" 
                    {% if type not in ['staticinput'] %}
@@ -100,8 +102,10 @@
             {% if type in ['staticinput'] %}
                 <p class='form-control' id='{{id}}_text' style="width:100%;">{{value}}</p>
             {% endif %}
-            {% if addon is not empty %}
-            </div>
+            {% if addon !='field_only' %}
+                {% if addon is not empty %}
+                </div>
+            {% endif %}
         {% endif %}
     </div>
     {#    </div> #}

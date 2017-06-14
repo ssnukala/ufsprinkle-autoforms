@@ -47,7 +47,7 @@ class FormfieldsController extends SimpleController {
     protected $_validators = [];
     protected $_rules = [];
     protected $_notification = ['save' => false];
-    protected $_faarray = ['text' => 'fa fa-fw fa-edit', 'email' => 'fa fa-fw fa-envelope',
+    protected $_faarray = ['text' => 'fa fa-fw fa-edit','text_only' => 'field_only', 'email' => 'fa fa-fw fa-envelope',
         'password' => 'fa fa-fw fa-key', 'captcha' => 'fa fa-fw fa-eye',
         'date' => 'fa fa-fw fa-calendar', 'datetime' => 'fa fa-fw fa-calendar',
         'number' => 'fa fa-fw fa-hashtag', 'phone' => 'fa fa-fw fa-hashtag',
@@ -126,9 +126,9 @@ class FormfieldsController extends SimpleController {
         $var_lookupcache = array();
         foreach ($par_tabdef as &$var_column) {
 //logarr($var_column,"Line 117 the column is ");            
-            if (isset($this->_faarray[$var_column['type']]))
+            if (isset($this->_faarray[$var_column['type']])){
                 $var_column['addon'] = $this->_faarray[$var_column['type']];
-
+            }
             if (in_array($var_column['type'], ['select', 'checkbox', 'radio'])) {
                 $var_column['addon'] = '';
                 if ($var_column['lookup_category'] != '' && isset($var_lookupcache[$var_column['lookup_category']])) {
@@ -140,7 +140,9 @@ class FormfieldsController extends SimpleController {
                 } else {
 // lookup category is not set so make this an editable field                        
                     $var_column['type'] = 'text';
-                    $var_column['addon'] = 'fa fa-fw fa-edit';
+                    if(!isset($var_column['addon'])){
+                        $var_column['addon'] = 'fa fa-fw fa-edit';
+                    }
                 }
             }
         }
