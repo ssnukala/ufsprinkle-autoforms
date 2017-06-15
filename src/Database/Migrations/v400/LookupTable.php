@@ -74,6 +74,8 @@ class LookupTable extends Migration {
                 "136" => new Lookup(["category" => "month", "value" => "10", "display_value" => "Oct", "sort_order" => "10", "status" => "A"]),
                 "137" => new Lookup(["category" => "month", "value" => "11", "display_value" => "Nov", "sort_order" => "11", "status" => "A"]),
                 "138" => new Lookup(["category" => "month", "value" => "12", "display_value" => "Dec", "sort_order" => "12", "status" => "A"]),
+                "15" => new Lookup(["category" => "rec_status", "value" => "A", "display_value" => "Active", "sort_order" => "", "status" => "A"]),
+                "16" => new Lookup(["category" => "rec_status", "value" => "I", "display_value" => "Inactive", "sort_order" => "0", "status" => "A"]),
                 "21" => new Lookup(["category" => "user_status", "value" => "A", "display_value" => "Active", "sort_order" => "1", "status" => "A"]),
                 "23" => new Lookup(["category" => "user_status", "value" => "I", "display_value" => "Inactive", "sort_order" => "2", "status" => "A"]),
                 "22" => new Lookup(["category" => "user_status", "value" => "D", "display_value" => "Duplicate", "sort_order" => "3", "status" => "A"]),
