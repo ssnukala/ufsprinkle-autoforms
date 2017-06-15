@@ -9,7 +9,7 @@
 
 namespace UserFrosting\Sprinkle\AutoForms\Database\Migrations\v400;
 
-use UserFrosting\System\Bakery\Migrations\UFMigration;
+use UserFrosting\System\Bakery\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
 use UserFrosting\Sprinkle\AutoForms\Database\Models\Formfields;
@@ -22,7 +22,7 @@ use UserFrosting\Sprinkle\AutoForms\Database\Models\Formfields;
  * @extends Migration
  * @author Alex Weissman (https://alexanderweissman.com)
  */
-class FormfieldsTable extends UFMigration {
+class FormfieldsTable extends Migration {
 
     /**
      * {@inheritDoc}
