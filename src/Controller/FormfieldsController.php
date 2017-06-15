@@ -14,7 +14,7 @@ use UserFrosting\Sprinkle\Core\Controller\SimpleController;
 use UserFrosting\Support\Exception\ForbiddenException;
 use UserFrosting\Sprinkle\Core\Util\EnvironmentInfo;
 use UserFrosting\Fortress\ServerSideValidator;
-use UserFrosting\Sprinkle\AutoForms\RequestSchema;
+use UserFrosting\Fortress\RequestSchema;
 use UserFrosting\Fortress\Adapter\JqueryValidationAdapter;
 use UserFrosting\Sprinkle\AutoForms\Database\AutoFormSource;
 use UserFrosting\Sprinkle\AutoForms\Database\Models\Formfields;
