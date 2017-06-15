@@ -6,12 +6,12 @@
  * @copyright Copyright (c) 2013-2016 Srinivas Nukala
  */
 
-namespace UserFrosting\Sprinkle\AutoForms\Model\Migrations\v400;
+namespace UserFrosting\Sprinkle\AutoForms\Database\Migrations\v400;
 
 use UserFrosting\System\Bakery\Migrations\UFMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
-use UserFrosting\Sprinkle\AutoForms\Model\Lookup;
+use UserFrosting\Sprinkle\AutoForms\Database\Models\Lookup;
 
 /**
  * Groups table migration

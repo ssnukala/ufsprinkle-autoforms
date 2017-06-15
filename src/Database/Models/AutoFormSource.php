@@ -8,12 +8,12 @@
 
  * */
 
-namespace UserFrosting\Sprinkle\AutoForms\Model;
+namespace UserFrosting\Sprinkle\AutoForms\Database\Models;
 
 use \Illuminate\Database\Capsule\Manager as Capsule;
-use UserFrosting\Sprinkle\Core\Model\UFModel;
+use UserFrosting\Sprinkle\Core\Database\Models\Model;
 
-class AutoFormSource extends UFModel {
+class AutoFormSource extends Model {
 
     protected $table = "undefined";
     protected $fillable = [];

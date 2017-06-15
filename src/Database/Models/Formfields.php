@@ -8,14 +8,14 @@
 
  * */
 
-namespace UserFrosting\Sprinkle\AutoForms\Model;
+namespace UserFrosting\Sprinkle\AutoForms\Database\Models;
 
 use \Illuminate\Database\Capsule\Manager as Capsule;
-use UserFrosting\Sprinkle\Core\Model\UFModel;
+use UserFrosting\Sprinkle\Core\Database\Models\Model;
 use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
 use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
 
-class Formfields extends UFModel {
+class Formfields extends Model {
 
     protected $table = "sevak_formfields";
     protected $fillable = ["form_prefix",

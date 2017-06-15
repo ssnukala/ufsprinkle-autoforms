@@ -16,8 +16,8 @@ use UserFrosting\Sprinkle\Core\Util\EnvironmentInfo;
 use UserFrosting\Fortress\ServerSideValidator;
 use UserFrosting\Fortress\RequestSchema;
 use UserFrosting\Fortress\Adapter\JqueryValidationAdapter;
-use UserFrosting\Sprinkle\AutoForms\Model\Formfields;
-use UserFrosting\Sprinkle\AutoForms\Model\Lookup;
+use UserFrosting\Sprinkle\AutoForms\Database\Models\Formfields;
+use UserFrosting\Sprinkle\AutoForms\Database\Models\Lookup;
 
 /**
  * CDFormfieldsController
