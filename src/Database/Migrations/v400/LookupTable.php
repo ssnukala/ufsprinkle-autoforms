@@ -46,7 +46,7 @@ class LookupTable extends Migration {
                 $table->collation = 'utf8_unicode_ci';
                 $table->charset = 'utf8';
             });
-        } else {
+        }  
             $lookup_fields = [
                 "5" => new Lookup(["category" => "frm_search_function", "value" => "between", "display_value" => "Range", "sort_order" => "", "status" => "A"]),
                 "6" => new Lookup(["category" => "frm_search_function", "value" => "like", "display_value" => "Like", "sort_order" => "", "status" => "A"]),
@@ -85,7 +85,6 @@ class LookupTable extends Migration {
             foreach ($lookup_fields as $id => $lookup_field) {
                 $lookup_field->save();
             }
-        }
     }
 
     /**
