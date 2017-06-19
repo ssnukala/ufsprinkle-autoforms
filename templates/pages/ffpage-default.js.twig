@@ -1,24 +1,12 @@
-<script type="text/javascript" id="ff{{prefix}}_{{source|replace(' ','_')}}_js">
+<script type="text/javascript" id="ff{{formattr.prefix}}_{{formattr.source|replace(' ','_')}}_js">
     jQuery(document).ready(function () {
-        // Process form 
-        /*
-         * 
-         $("#account-settings").ufForm({
-         validators: page.validators.account_settings,
-         msgTarget: $("#alerts-page")
-         }).on("submitSuccess.ufForm", function () {
-         // Reload the page on success
-         window.location.reload();
-         });
-         
-         */
-        $("form[name='{{prefix}}{{source|replace(" ","_")|replace("__","_")}}_n']").ufForm({
+        $("form[name='{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n']").ufForm({
             validators:{{ validators | raw }} ,
             msgTarget: $("#userfrosting-alerts")
         }).on("submitSuccess.ufForm", function () {
             var var_data = JSON.parse(data);
             alert("Submit complete got " + var_data.id);
-            jQuery("form[name='{{prefix}}{{source|replace(" ","_")|replace("__","_")}}_n']").find("input[name='id']:hidden:first").val(var_data.id).change();
+            jQuery("form[name='{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n']").find("input[name='id']:hidden:first").val(var_data.id).change();
         }).on("submitError.ufForm", function () {
             // Reload captcha
             alert('Submit failed');

@@ -7,14 +7,14 @@
 
  **/
 
-namespace UserFrosting\Sprinkle\AutoForms\Model;
+namespace UserFrosting\Sprinkle\AutoForms\Database\Models;
 use \Illuminate\Database\Capsule\Manager as Capsule; 
-use UserFrosting\Sprinkle\Core\Model\UFModel;
+use UserFrosting\Sprinkle\Core\Database\Models\Model;
 
-class Lookup extends UFModel {
+class Lookup extends Model {
     protected $table = "sevak_lookup";
 
-    protected $fillable = ['category','value','diaplay_value','sort_order','status'];
+    protected $fillable = ['category','value','display_value','value_type', 'sort_order','status'];
         
     public static function getLookupValues($category,$catcondition='=',$status='A', $par_orderdir = 'ASC') {
         if(strtolower($catcondition)=='in')

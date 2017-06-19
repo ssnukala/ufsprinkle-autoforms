@@ -8,25 +8,25 @@
 
  * */
 
-namespace UserFrosting\Sprinkle\AutoForms\Model;
+namespace UserFrosting\Sprinkle\AutoForms\Database\Models;
 
 use \Illuminate\Database\Capsule\Manager as Capsule;
-use UserFrosting\Sprinkle\Core\Model\UFModel;
+use UserFrosting\Sprinkle\Core\Database\Models\Model;
 use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
+use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
 
-class Formfields extends UFModel {
+class Formfields extends Model {
 
     protected $table = "sevak_formfields";
     protected $fillable = ["form_prefix",
-        "table_name",
-        "seq",
-        "db_name",
+        "source",
+        "db_field",
         "value_type",
         "edit_group",
-        "hidden",
+        "visible",
         "orderable",
         "type",
-        "lookup_cat",
+        "lookup_category",
         "showin_editform",
         "primary_key",
         "label",
@@ -35,35 +35,31 @@ class Formfields extends UFModel {
         "size1",
         "size2",
         "default",
-        "empty_check",
         "searchable",
+        "search_function",
         "search_group",
         "showin_searchresult",
         "result_group",
-        "search_function",
         "status"];
 
     public static function getFieldDefinitions($table, $status = 'A', $par_orderdir = 'ASC') {
-        $resultArr_obj = self::where('table_name', '=', $table)
+        $resultArr_obj = self::where('source', '=', $table)
                 ->where('status', '=', $status)
                 ->orderBy('seq', $par_orderdir)
                 ->get();
         $resultArr = $resultArr_obj->toArray();
-//logarr($resultArr,"Line 62 returning from formfields table $table");        
+Debug::debug("Line 62 returning from formfields table $table",$resultArr); 
         $var_classfields = $var_fields = array();
         $var_primarykey = 'none';
         foreach ($resultArr as $var_rowid => $var_fldrec) {
-            $var_dbfld = $var_fldrec['db_name'];
+            $var_dbfld = $var_fldrec['db_field'];
             $var_fields[$var_dbfld] = $var_fldrec;
             if ($var_fldrec['primary_key'] == 'Y' && $var_primarykey == 'none') {
 //echobr("Setting primary key now to $var_dbfld");
                 $var_primarykey = $var_dbfld;
             }
             if ($var_fldrec['searchable'] == 'Y') {
-                $var_classfields['search_fields'][$var_dbfld] = $var_fldrec['search_group'];
-            }
-            if ($var_fldrec['showin_searchresult'] == 'Y') {
-                $var_classfields['result_fields'][$var_dbfld] = $var_fldrec['result_group'];
+                $var_classfields['search_fields'][$var_dbfld] = $var_fldrec['edit_group'];
             }
             if ($var_fldrec['showin_editform'] == 'Y') {
                 $var_classfields['edit_fields'][$var_dbfld] = $var_fldrec['edit_group'];
@@ -72,8 +68,6 @@ class Formfields extends UFModel {
 //echoarr($var_classfields[$par_table],"Line 618 classfields array");
         if (isset($var_classfields['search_fields']))
             asort($var_classfields['search_fields']); // sort the search fields by serarch group
-        if (isset($var_classfields['result_fields']))
-            asort($var_classfields['result_fields']); // sort the edit fields by result group
         if (isset($var_classfields['edit_fields']))
             asort($var_classfields['edit_fields']); // sort the edit fields by edit group
 

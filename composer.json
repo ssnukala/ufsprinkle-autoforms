@@ -1,17 +1,17 @@
 {
     "name": "userfrosting/sprinkle-account",
     "type": "sprinkle",
-    "description": "Authentication and account management module for UserFrosting.",
+    "description": "Form generation module for User Frosting.",
     "keywords": ["php user management", "usercake", "bootstrap"],
     "homepage": "https://github.com/userfrosting/UserFrosting",
     "license" : "MIT",
     "authors" : [
         {
-            "name": "Alexander Weissman",
-            "homepage": "https://alexanderweissman.com"
+            "name": "Srinivas Nukala",
+            "homepage": "https://srinivasnukala.com"
         }
     ],
-    "version": "4.0.0",
+    "version": "4.0",
     "require": {
     },
     "autoload": {
