@@ -41,7 +41,6 @@ class Formfields extends UFModel {
         "showin_searchresult",
         "result_group",
         "search_function",
-        "showin_shortform",
         "status"];
 
     public static function getFieldDefinitions($table, $status = 'A', $par_orderdir = 'ASC') {
