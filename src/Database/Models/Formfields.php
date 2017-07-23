@@ -48,7 +48,7 @@ class Formfields extends Model {
                 ->orderBy('seq', $par_orderdir)
                 ->get();
         $resultArr = $resultArr_obj->toArray();
-Debug::debug("Line 62 returning from formfields table $table",$resultArr); 
+//Debug::debug("Line 62 returning from formfields table $table",$resultArr); 
         $var_classfields = $var_fields = array();
         $var_primarykey = 'none';
         foreach ($resultArr as $var_rowid => $var_fldrec) {
