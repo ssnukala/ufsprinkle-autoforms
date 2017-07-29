@@ -1,4 +1,4 @@
-{% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
+{% import "widgets/ffpage-macros.html.twig" as ff_widget %}
 {% if formattr.showform  %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           role="form" method="post" action='{{formattr.action}}'>

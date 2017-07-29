@@ -1,4 +1,4 @@
-{% import "widgets/ffpage-macros-old.html.twig" as ff_widget %}
+{% import "widgets/ffpage-macros.html.twig" as ff_widget %}
 {% if (formattr.showform | default('Y'))=='Y' %}
     <form name="{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n" class="form form-compact1 form-horizontal" 
           action='{{formattr.action}}'  role="form" method="post">
@@ -8,6 +8,7 @@
     {% for fid, field in formattr.fields  if ( field.showin_editform =='Y') %}
         {# macro uf_select(id, name, label, option_array, lclass, iclass,multiple=false, help='',value="", include_blank=true,other_att="", size="") #}
         {% set ffldid = prefix~'_'~field.db_field %}
+        {% set fldplaceholder = field.message is empty ? field.label : field.message %}
         {% if formattr.form_array is empty %}
             {% set ffldname = field.db_field %}
             {% set ffldval = formattr.data[field.db_field] %}
@@ -34,7 +35,7 @@
                 {%elseif field.type=='google_address' %}
 {{  ff_widget.addrsearch_google(ffldid, ffldname, field.label, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,field.addon,field.label) }}
                 {% else %}
-                    {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,field.label,'','',ffldval) }}
+                    {{ ff_widget.uf_inputtext(field.type,ffldid,ffldname,field.label,field.addon, "col-sm-2 "~field.lable_class,"col-sm-4 "~field.class,fldplaceholder,'','',ffldval) }}
                 {% endif %}
                 {% if fldcount == (formattr.fields_perrow|default(2)) %}
                     {% set fldcount = 0 %}
