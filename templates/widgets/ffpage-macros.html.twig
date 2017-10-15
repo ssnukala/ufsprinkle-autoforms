@@ -80,7 +80,7 @@
     {% if addon !='field_only' %}
         <label for="{{id}}" class="control-label {{lclass}} text-right">{{label}}</label>
         <div class="{{iclass}}">
-            {% if addon is not empty %}
+        {% if addon is not empty and type not in ['staticinput'] %}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="{{addon}}"></i></span>
                     {% endif %}
@@ -100,10 +100,10 @@
                    {% endif %}
                    {{other_att}} {% if type in ['number'] %} min="0" {% endif %}>
             {% if type in ['staticinput'] %}
-                <p class='form-control' id='{{id}}_text' style="width:100%;">{{value}}</p>
+                <p class='not-form-control text-left' id='{{id}}_text' style="padding:3px;border: 1px solid #ccc; width:100%;">{{value}}</p>
             {% endif %}
             {% if addon !='field_only' %}
-                {% if addon is not empty %}
+                {% if addon is not empty  and type not in ['staticinput']%}
                 </div>
             {% endif %}
         {% endif %}
@@ -119,6 +119,15 @@
         <textarea rows="{{rows|default(3)}}"  cols="{{cols|default(60)}}" class="form-control {{class}}" id="{{id | default("input_" ~ name ~ "_i" ) }}"  
                   name="{{ name }}" placeholder="{{ placeholder|default(label) }}">{{ value }}</textarea>
         {{ form.error_block(errors) }}
+    </div>
+{% endmacro %}    
+
+{% macro uf_textwithlabel(id, label, lclass,iclass,value, other_att="") %}
+    {% import _self as form %}
+    {#     <div class="form-group"> #}
+    <label class="control-label {{lclass}} text-right">{{label}}</label>
+    <div class="{{iclass}}">
+        <p class='text-left not-form-control' {{other_att}}  id='{{id}}_text' style="padding:3px;border: 1px solid #ccc;width:100%;">{{value}}</p>
     </div>
 {% endmacro %}    
 

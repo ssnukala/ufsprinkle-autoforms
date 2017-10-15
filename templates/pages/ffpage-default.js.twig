@@ -5,6 +5,17 @@
             msgTarget: $("#userfrosting-alerts")
         }).on("submitSuccess.ufForm", function () {
             var var_data = JSON.parse(data);
+                    if (var_data.response_html !== '')
+                    {
+                    } else if (var_data.redirect_url !== '' && var_data.redirect_url !== 'undefined')
+                    {
+                        window.location.replace(var_data.redirect_url);
+                    } else
+                    {
+                        // Forward to login page on success
+                        window.location.replace(site['uri']['public'] + "/myproperties");
+                    }
+            
             alert("Submit complete got " + var_data.id);
             jQuery("form[name='{{formattr.prefix}}{{formattr.source|replace(" ","_")|replace("__","_")}}_n']").find("input[name='id']:hidden:first").val(var_data.id).change();
         }).on("submitError.ufForm", function () {
