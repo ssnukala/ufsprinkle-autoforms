@@ -14,7 +14,7 @@ use UserFrosting\Sprinkle\Core\Database\Models\Model;
 class Lookup extends Model {
     protected $table = "sevak_lookup";
 
-    protected $fillable = ['category','value','display_value','value_type', 'sort_order','status'];
+    protected $fillable = [ 'category','value','display_value','value_type', 'sort_order','status'];
         
     public static function getLookupValues($category,$catcondition='=',$status='A', $par_orderdir = 'ASC') {
         if(strtolower($catcondition)=='in')

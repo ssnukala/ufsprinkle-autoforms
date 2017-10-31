@@ -20,6 +20,7 @@ class Formfields extends Model {
     protected $table = "sevak_formfields";
     protected $fillable = ["form_prefix",
         "source",
+        "seq",
         "db_field",
         "value_type",
         "edit_group",
