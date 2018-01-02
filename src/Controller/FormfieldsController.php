@@ -20,8 +20,6 @@ use UserFrosting\Sprinkle\AutoForms\Database\AutoFormSource;
 use UserFrosting\Sprinkle\AutoForms\Database\Models\Formfields;
 use UserFrosting\Sprinkle\AutoForms\Database\Models\Lookup;
 use UserFrosting\Sprinkle\Core\Facades\Debug as Debug;
-use UserFrosting\Sprinkle\SnUtilities\Controller\SnDBUtilities as SnDbUtil;
-use UserFrosting\Sprinkle\SnUtilities\Controller\SnUtilities as SnUtil;
 
 /**
  * FormfieldsController
@@ -82,7 +80,6 @@ class FormfieldsController extends SimpleController {
         $this->initializePageFields();
 //        Debug::debug("Line 80 Fields when initialized", $this->_fields);
 //logarr($this->_db_columns,"Line 81 Columns when initialized");  
-//SnDbUtil::getMigrationDataArray('sevak_formfields'," ORDER BY source,edit_group");        
     }
 
     public function getFields() {
@@ -160,7 +157,6 @@ class FormfieldsController extends SimpleController {
 
     public function getFFPageHTMLJS($pageparams = [], $htmlonly = false) {
         $this->createFormfieldPage($pageparams, $htmlonly);
-//SnUtil::logarr($this->_ffpage,"Line 104 returning ffpage array");        
         return $this->_ffpage;
     }
 
@@ -180,8 +176,6 @@ class FormfieldsController extends SimpleController {
      */
     public function createFormfieldPage($pageparams = [], $htmlonly = false) {
 
-//SnUtil::logarr($pageparams,"Line 133 pageparams ");
-//SnUtil::logarr($this->_fields,"Line 116 rendernig the page now ".$this->_html_template);   
         $this->getFFHTML($pageparams);
         $this->getValidators();
         if (!$htmlonly) {
@@ -191,7 +185,6 @@ class FormfieldsController extends SimpleController {
     }
 
     public function getFFHTML($params) {
-        SnUtil::logtxt("Line 116 rendernig the page now " . $this->_html_template);
         $params['fields'] = $this->_fields;
         $this->_ffpage['html'] = $this->ci->view->fetch($this->_html_template, [
             'page' => [
